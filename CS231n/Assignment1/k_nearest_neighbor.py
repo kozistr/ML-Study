@@ -38,7 +38,7 @@ class KNearestNeighbor:
     def predict(self, x, k=1, num_loops=1):
         """
         :param x: x-images (test data)
-        :param k: k-fold, default 1
+        :param k: the number of nearest neighbors, default 1
         :param num_loops: the number of loops that determines witch method to use to compute 'the distances'
         :return: y (predictions of x)
         """
@@ -96,7 +96,7 @@ class KNearestNeighbor:
     def predict_labels(self, distances, k):
         """
         :param distances: l1, l2 distances
-        :param k: k-fold
+        :param k: the number of nearest neighbors
         :return: predictions
         """
 
