@@ -54,6 +54,7 @@ class KNearestNeighbor:
         return self.predict_labels(distances=distances, k=k)
 
     def no_loops(self, x):
+        # not sure about this implementation
         t = np.sum(np.power(x, 2), axis=1)
         f = np.sum(np.power(self.x, 2), axis=1).T
         f = np.tile(f, (500, 5000))
