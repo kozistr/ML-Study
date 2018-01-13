@@ -2,11 +2,11 @@ import numpy as np
 
 
 def l1_loss(data, predict):
-    return np.sum(np.abs(predict - data), axis=1)
+    return np.sum(np.abs(predict - data))
 
 
 def l2_loss(data, predict):
-    return np.sum(np.power(predict - data, 2), axis=1)
+    return np.sum(np.power(predict - data, 2))
 
 
 class KNearestNeighbor:
@@ -140,7 +140,7 @@ class KNearestNeighbor:
         between the ith test point and the jth training point.
         """
 
-        num_test = x.shape[0]        # the number of test images
+        num_test = x.shape[0]              # the number of test images
         num_train = self.x_train.shape[0]  # the number of train images
 
         distance = np.zeros((num_test, num_train))
