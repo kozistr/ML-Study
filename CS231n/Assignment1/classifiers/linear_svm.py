@@ -17,14 +17,14 @@ def svm_loss_naive(w, x, y, reg):
 
     dw = np.zeros(w.shape)  # initialize the gradient as zero
 
-    n_classes = w.shape[0]
-    n_train = x.shape[1]
+    n_classes = w.shape[1]
+    n_train = x.shape[0]
 
     loss = 0.
 
     # compute loss & gradient
     for i in range(n_train):
-        scores = w.dot(x[:, i])
+        scores = x[i].dot(w)
         correct_scores = scores[y[i]]
 
         for j in range(n_classes):
@@ -37,8 +37,8 @@ def svm_loss_naive(w, x, y, reg):
                 loss += margin
 
                 # update gradient
-                dw[j, :] += x[:, i].T
-                dw[y[i], :] -= x[:, i].T
+                dw[:, j] += x[i]
+                dw[:, y[i]] -= x[i]
 
     loss /= n_train
     dw /= n_train
@@ -77,8 +77,7 @@ def svm_loss_vectorized(w, x, y, reg):
     """
 
     n_train = x.shape[0]
-    n_classes = w.shape[1]
-    delta = 1.
+    delta = 1
 
     #############################################################################
     # TODO:                                                                     #
@@ -87,16 +86,17 @@ def svm_loss_vectorized(w, x, y, reg):
     #############################################################################
 
     scores = x.dot(w)
-    correct_scores = scores[np.arange(n_train), y]
+    idx_correct_scores = [np.arange(n_train), y]
+    correct_scores = scores[idx_correct_scores[0], idx_correct_scores[1]].reshape(-1, 1)
 
-    margins = np.maximum(0, scores - np.matrix(correct_scores).T + delta)
-    margins[np.arange(n_train), y] = 0
+    margins = np.maximum(0, scores - correct_scores + delta)
+    margins[idx_correct_scores[0], idx_correct_scores[1]] = 0
 
     # L2 regularization
     w_reg = .5 * reg * float(np.tensordot(w, w, axes=((0, 1), (0, 1))))
 
     # SVM loss with regularization
-    loss = np.mean(np.sum(margins)) + w_reg
+    loss = np.sum(margins) / float(n_train) + w_reg
 
     #############################################################################
     #                             END OF YOUR CODE                              #
@@ -112,15 +112,14 @@ def svm_loss_vectorized(w, x, y, reg):
     # loss.                                                                     #
     #############################################################################
 
-    mask = np.zeros((n_train, n_classes), dtype=bool)
-    mask[margins > 0] = 1
-    mask[np.arange(n_train), y] = 0
-    mask[np.arange(n_train), y] = -np.sum(mask, axis=1).T
+    margins[np.where(margins > 0)] = 1
+    margins[range(n_train), y] = -np.sum(margins, axis=1)
 
     # L2 regularization
-    dw_reg = reg * w  # differential of w_reg
+    dw_reg = reg * w
 
-    dw = np.dot(x.T, mask) / float(n_train) + dw_reg
+    dw = x.T.dot(margins)
+    dw = dw / float(n_train) + dw_reg
 
     #############################################################################
     #                             END OF YOUR CODE                              #
