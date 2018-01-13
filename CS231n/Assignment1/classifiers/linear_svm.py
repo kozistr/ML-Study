@@ -44,7 +44,7 @@ def svm_loss_naive(w, x, y, reg):
     dw /= n_train
 
     # L2 regularization
-    w_reg = .5 * reg * np.sum(np.power(w, 2))
+    w_reg = .5 * reg * float(np.tensordot(w, w, axes=((0, 1), (0, 1))))
     dw_reg = reg * w  # differential of w_reg by w
 
     # add reg to the loss and gradient
@@ -76,7 +76,8 @@ def svm_loss_vectorized(w, x, y, reg):
     :return: Same as above
     """
 
-    n_train = x.shape[1]
+    n_train = x.shape[0]
+    n_classes = w.shape[1]
     delta = 1.
 
     #############################################################################
@@ -86,18 +87,16 @@ def svm_loss_vectorized(w, x, y, reg):
     #############################################################################
 
     scores = x.dot(w)
-    correct_scores = scores[y, np.arange(n_train)]            # * np.ones(scores.shape)
+    correct_scores = scores[np.arange(n_train), y]
 
-    margins = np.maximum(0, scores - correct_scores + delta)  # just store result in 'margins'
-    indicator = margins > 0
+    margins = np.maximum(0, scores - np.matrix(correct_scores).T + delta)
+    margins[np.arange(n_train), y] = 0
 
     # L2 regularization
-    w_reg = .5 * reg * np.sum(np.power(w, 2))
-
-    margins = np.sum(margins * indicator, axis=0) - 1
+    w_reg = .5 * reg * float(np.tensordot(w, w, axes=((0, 1), (0, 1))))
 
     # SVM loss with regularization
-    loss = np.sum(margins) / float(n_train) + w_reg
+    loss = np.mean(np.sum(margins)) + w_reg
 
     #############################################################################
     #                             END OF YOUR CODE                              #
@@ -113,13 +112,15 @@ def svm_loss_vectorized(w, x, y, reg):
     # loss.                                                                     #
     #############################################################################
 
-    indicator *= np.ones(margins.shape)
-    indicator[[y, np.arange(n_train)]] = -(np.sum(indicator, axis=0) - 1)
+    mask = np.zeros((n_train, n_classes), dtype=bool)
+    mask[margins > 0] = 1
+    mask[np.arange(n_train), y] = 0
+    mask[np.arange(n_train), y] = -np.sum(mask, axis=1).T
 
     # L2 regularization
     dw_reg = reg * w  # differential of w_reg
 
-    dw = indicator.dot(x.T) / float(n_train) + dw_reg
+    dw = np.dot(x.T, mask) / float(n_train) + dw_reg
 
     #############################################################################
     #                             END OF YOUR CODE                              #
