@@ -45,7 +45,7 @@ def svm_loss_naive(w, x, y, reg):
 
     # L2 regularization
     w_reg = .5 * reg * np.sum(np.power(w, 2))
-    dw_reg = reg * w  # derivation of w_reg by w
+    dw_reg = reg * w  # differential of w_reg by w
 
     # add reg to the loss and gradient
     loss += w_reg
@@ -112,7 +112,7 @@ def svm_loss_vectorized(w, x, y, reg):
 
     # L2 regularization
     w_reg = .5 * reg * np.sum(np.power(w, 2))
-    dw_reg = reg * w
+    dw_reg = reg * w  # differential of w_reg by w
 
     loss = np.sum(margin) / float(n_train) + w_reg
 
