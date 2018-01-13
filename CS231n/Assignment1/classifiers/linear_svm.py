@@ -77,6 +77,7 @@ def svm_loss_vectorized(w, x, y, reg):
     """
 
     n_train = x.shape[1]
+    delta = 1.
 
     #############################################################################
     # TODO:                                                                     #
@@ -84,11 +85,19 @@ def svm_loss_vectorized(w, x, y, reg):
     # result in loss.                                                           #
     #############################################################################
 
-    scores = w.dot(x)
-    correct_scores = np.ones(scores.shape) * scores[y, np.arange(n_train)]
-    deltas = np.ones(scores.shape)
+    scores = x.dot(w)
+    correct_scores = scores[y, np.arange(n_train)]            # * np.ones(scores.shape)
 
-    margin = scores - correct_scores + deltas  # just store result in 'margin'
+    margins = np.maximum(0, scores - correct_scores + delta)  # just store result in 'margins'
+    indicator = margins > 0
+
+    # L2 regularization
+    w_reg = .5 * reg * np.sum(np.power(w, 2))
+
+    margins = np.sum(margins * indicator, axis=0) - 1
+
+    # SVM loss with regularization
+    loss = np.sum(margins) / float(n_train) + w_reg
 
     #############################################################################
     #                             END OF YOUR CODE                              #
@@ -104,20 +113,11 @@ def svm_loss_vectorized(w, x, y, reg):
     # loss.                                                                     #
     #############################################################################
 
-    indicator = margin > 0.
-
-    margin[margin < 0] = 0.                     # min value, 0
-    margin[y, np.arange(scores.shape[1])] = 0.  # case of i == y_i
-    # margin = np.sum(margin * indicator, axis=0) - 1.
+    indicator *= np.ones(margins.shape)
+    indicator[[y, np.arange(n_train)]] = -(np.sum(indicator, axis=0) - 1)
 
     # L2 regularization
-    w_reg = .5 * reg * np.sum(np.power(w, 2))
-    dw_reg = reg * w  # differential of w_reg by w
-
-    loss = np.sum(margin) / float(n_train) + w_reg
-
-    indicator *= np.ones(margin.shape)
-    indicator[[y, np.arange(n_train)]] = -(np.sum(indicator, axis=0) - 1.)
+    dw_reg = reg * w  # differential of w_reg
 
     dw = indicator.dot(x.T) / float(n_train) + dw_reg
 
