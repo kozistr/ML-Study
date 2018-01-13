@@ -47,7 +47,7 @@ def extract_features(imgs, feature_fns):
 
             idx = next_idx
 
-        if i % 4000 == 0:
+        if i % 2000 == 0:
             print('Done extracting features for %d / %d images' % (i, num_images))
 
     return imgs_features
