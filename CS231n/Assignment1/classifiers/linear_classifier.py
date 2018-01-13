@@ -5,12 +5,12 @@ from classifiers.softmax import *
 
 class LinearClassifier(object):
 
-    def __init__(self, batch_size=64, n_iters=1000, log_iters=100,
+    def __init__(self, batch_size=200, n_iters=1000, log_iters=100,
                  learning_rate=1e-3, regularization=5e-4):
         """
         Train this linear classifier using stochastic gradient descent.
 
-        :param batch_size: (integer) number of training examples to use at each step, default 64
+        :param batch_size: (integer) number of training examples to use at each step, default 200
         :param n_iters: (integer) number of steps to take when optimizing, default 1000
         :param log_iters: (integer) number of steps to log when optimizing, default 100
         :param learning_rate: (float) learning rate for optimization., default 1e-3
@@ -38,11 +38,11 @@ class LinearClassifier(object):
         :return: A list containing the value of the loss function at each training iteration.
         """
 
-        dim, n_train = x.shape
-        self.n_classes = np.max(y) + 1  # assume y takes values 0...K-1 where K is number of classes
+        n_train, dim = x.shape
+        self.n_classes = int(np.max(y) + 1)  # assume y takes values 0...K-1 where K is number of classes
 
         if not self.W:
-            self.W = np.random.randn(self.n_classes, dim) * 0.001  # lazily initialize W
+            self.W = np.random.randn(dim, self.n_classes) * 0.001  # lazily initialize W
 
         # Run stochastic gradient descent to optimize W
         losses = []
@@ -60,9 +60,9 @@ class LinearClassifier(object):
             #########################################################################
 
             # Get training batch data
-            rand_idx = np.random.choice(n_train, self.batch_size, replace=True)
+            rand_idx = np.random.choice(np.arange(n_train), self.batch_size, replace=True)
 
-            x_batch = x[:, rand_idx]
+            x_batch = x[rand_idx]
             y_batch = y[rand_idx]
 
             #########################################################################
