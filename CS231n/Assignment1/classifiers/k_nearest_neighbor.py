@@ -2,7 +2,7 @@ import numpy as np
 
 
 def l1_distance(data, predict):
-    return np.sqrt(np.sum(np.abs(predict - data)))
+    return np.sum(np.abs(predict - data))
 
 
 def l2_distance(data, predict):
@@ -123,7 +123,7 @@ class KNearestNeighbor:
             if self.distance == 'L1':
                 distance[i, :] = l1_distance(self.x_train, x[i, :])
             elif self.distance == 'L2':
-                distance[i, :] = l2_distance((self.x_train, x[i, :])
+                distance[i, :] = l2_distance(self.x_train, x[i, :])
 
             #######################################################################
             #                         END OF YOUR CODE                            #
