@@ -1,12 +1,12 @@
 import numpy as np
 
 
-def l1_loss(data, predict):
-    return np.sum(np.abs(predict - data))
+def l1_distance(data, predict):
+    return np.sqrt(np.sum(np.abs(predict - data)))
 
 
-def l2_loss(data, predict):
-    return np.sum(np.power(predict - data, 2))
+def l2_distance(data, predict):
+    return np.sqrt(np.sum(np.square(predict - data)))
 
 
 class KNearestNeighbor:
@@ -52,17 +52,17 @@ class KNearestNeighbor:
         """
 
         if num_loops == 0:
-            distances = self.no_loop(x)
+            distances = self.compute_distances_no_loops(x)
         elif num_loops == 1:
-            distances = self.one_loop(x)
+            distances = self.compute_distances_one_loop(x)
         elif num_loops == 2:
-            distances = self.two_loops(x)
+            distances = self.compute_distances_two_loops(x)
         else:
             raise ValueError("Invalid value %d for num_loops" % num_loops)
 
         return self.predict_labels(distances=distances, k=k)
 
-    def no_loop(self, x):
+    def compute_distances_no_loops(self, x):
         """
         Compute the distance between each test point in X and each training point in self.X_train
         using no explicit loops.
@@ -84,13 +84,14 @@ class KNearestNeighbor:
         #       and two broadcast sums.                                         #
         #########################################################################
 
-        t = np.sum(np.power(x, 2), axis=1)
-        f = np.sum(np.power(self.x_train, 2), axis=1).T
-        f = np.tile(f, (500, 5000))
+        # Output: sqrt((x-y)^2)
+        # (x-y)^2 = x^2 + y^2 - 2xy
+        x_2 = np.sum(np.square(x), axis=1).reshape(-1, 1)
+        y_2 = np.sum(np.square(self.x_train), axis=1)
 
-        ft = x.dot(self.x_train.T)
+        xy = np.dot(x, self.x_train.T)
 
-        distance = t + f - 2 * ft
+        distance = np.sqrt(x_2 + y_2 - 2 * xy)
 
         #########################################################################
         #                         END OF YOUR CODE                              #
@@ -98,7 +99,7 @@ class KNearestNeighbor:
 
         return distance
 
-    def one_loop(self, x):
+    def compute_distances_one_loop(self, x):
         """
         Compute the distance between each test point in X and each training point in self.X_train using a single loop
         over the test data.
@@ -120,9 +121,9 @@ class KNearestNeighbor:
             #######################################################################
 
             if self.distance == 'L1':
-                distance[i, :] = l1_loss(self.x_train, x[i, :])
+                distance[i, :] = l1_distance(self.x_train, x[i, :])
             elif self.distance == 'L2':
-                distance[i, :] = l2_loss(self.x_train, x[i, :])
+                distance[i, :] = l2_distance((self.x_train, x[i, :])
 
             #######################################################################
             #                         END OF YOUR CODE                            #
@@ -130,7 +131,7 @@ class KNearestNeighbor:
 
         return distance
 
-    def two_loops(self, x):
+    def compute_distances_two_loops(self, x):
         """
         Compute the distance between each test point in X and each training point in self.X_train using a nested loop
         over both the training data and the test data.
@@ -155,9 +156,9 @@ class KNearestNeighbor:
                 #####################################################################
 
                 if self.distance == 'L1':
-                    distance[i, j] = l1_loss(self.x_train[j, :], x[i, :])
+                    distance[i, j] = l1_distance(self.x_train[j, :], x[i, :])
                 elif self.distance == 'L2':
-                    distance[i, j] = l2_loss(self.x_train[j, :], x[i, :])
+                    distance[i, j] = l2_distance(self.x_train[j, :], x[i, :])
 
                 #####################################################################
                 #                       END OF YOUR CODE                            #
