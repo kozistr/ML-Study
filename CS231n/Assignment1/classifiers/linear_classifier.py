@@ -1,6 +1,6 @@
 import numpy as np
-from linear_svm import *
-from softmax import *
+from classifiers.linear_svm import *
+from classifiers.softmax import *
 
 
 class LinearClassifier(object):
