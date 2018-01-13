@@ -14,9 +14,9 @@ class KNearestNeighbor:
     a k-Nearest-Neighbor with L1, L2 distances
     """
 
-    def __init__(self, distance='L1'):
+    def __init__(self, distance='L2'):
         """
-        :param distance: a type of distance, default L1 distance
+        :param distance: a type of distance, default L2 distance
         """
 
         # pre-defined
