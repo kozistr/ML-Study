@@ -117,7 +117,7 @@ class CiFarDataSet:
 
     def __init__(self, batch_size=128, epoch=250, input_height=64, input_width=64, input_channel=3,
                  output_height=64, output_width=64, output_channel=3,
-                 split_rate=0.2, random_state=42, num_threads=8, name="cifar-10"):
+                 split_rate=0.2, random_state=42, num_threads=8, one_hot=True, name="cifar-10"):
 
         """
         # General Settings
@@ -127,8 +127,6 @@ class CiFarDataSet:
         :param input_width: input image width, default 64
         :param input_channel: input image channel, default 3 (RGB)
         - in case of CIFAR, image size is 32x32x3(HWC).
-        :param n_classes: input datasets' classes
-        - in case of CIFAR, 10, 100
 
         # Output Settings
         :param output_height: output images height, default 28
@@ -141,6 +139,7 @@ class CiFarDataSet:
         :param num_threads: the number of threads for multi-threading, default 8
 
         # DataSet Option
+        :param one_hot: convert labels into one-hot vector, default True
         :param name: DataSet name, default cifar-10
         """
 
@@ -160,6 +159,7 @@ class CiFarDataSet:
         self.name = name
 
         self.path = ""  # DataSet path
+        self.one_hot = one_hot
         self.n_classes = 10  # DataSet the number of classes, default 10
 
         self.train_images = ''
@@ -232,9 +232,14 @@ class CiFarDataSet:
         self.valid_images = valid_images
         self.test_images = test_images
 
-        self.train_labels = one_hot(train_labels, self.n_classes)
-        self.valid_labels = one_hot(valid_labels, self.n_classes)
-        self.test_labels = one_hot(test_labels, self.n_classes)
+        if self.one_hot:
+            self.train_labels = one_hot(train_labels, self.n_classes)
+            self.valid_labels = one_hot(valid_labels, self.n_classes)
+            self.test_labels = one_hot(test_labels, self.n_classes)
+        else:
+            self.train_labels = train_labels
+            self.valid_labels = valid_labels
+            self.test_labels = test_labels
 
     def cifar_100(self):
         self.path = DataSets['cifar-100']
@@ -270,9 +275,14 @@ class CiFarDataSet:
         self.valid_images = valid_images
         self.test_images = test_images
 
-        self.train_labels = one_hot(train_labels, self.n_classes)
-        self.valid_labels = one_hot(valid_labels, self.n_classes)
-        self.test_labels = one_hot(test_labels, self.n_classes)
+        if self.one_hot:
+            self.train_labels = one_hot(train_labels, self.n_classes)
+            self.valid_labels = one_hot(valid_labels, self.n_classes)
+            self.test_labels = one_hot(test_labels, self.n_classes)
+        else:
+            self.train_labels = train_labels
+            self.valid_labels = valid_labels
+            self.test_labels = test_labels
 
 
 class CelebADataSet:
