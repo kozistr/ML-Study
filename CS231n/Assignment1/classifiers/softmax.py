@@ -17,6 +17,10 @@ def softmax_loss_naive(w, x, y, reg):
 
     dw = np.zeros(w.shape)
 
+    n_train = x.shape[0]
+
+    loss = 0.
+
     #############################################################################
     # TODO: Compute the softmax loss and its gradient using explicit loops.     #
     # Store the loss in loss and the gradient in dW. If you are not careful     #
@@ -24,32 +28,30 @@ def softmax_loss_naive(w, x, y, reg):
     # regularization!                                                           #
     #############################################################################
 
-    n_train = x.shape[1]
-    n_classes = dw.shape[0]
-
-    loss = 0.
-
     for i in range(n_train):
-        x_i = x[:, i]
-        score_i = w.dot(x_i)
-
+        score_i = x[i].dot(w)
         stability = -np.max(score_i)
 
-        exp_score_i = np.exp(score_i + stability)
-        exp_score_sum_i = np.sum(exp_score_i, axis=0)
+        scores = np.exp(score_i + stability)
+        scores_norm = scores / float(np.sum(scores))
 
+        loss += -np.log(scores_norm[y[i]])
+
+        """
         for j in range(n_classes):
-            dw[j, :] += (score_i[j] / exp_score_sum_i) * x.T
+            dw[:. j] += (score_i[j] / np.sum(scores)) * x.T
 
             if j == y[i]:
-                dw[j, :] -= x.T  # remove j == y[i] case
+                dw[:. j] -= x.T  # remove j == y[i] case
+        """
 
-        numerator = np.exp(score_i[y[i]] + stability)
+        dw_update = np.outer(x[i], scores_norm)
+        dw_update[:, y[i]] -= x[i]
 
-        loss += -np.log(numerator / float(exp_score_sum_i))
+        dw += dw_update
 
     # L2 regularization
-    w_reg = .5 * reg * np.sum(np.power(w, 2))
+    w_reg = .5 * reg * float(np.tensordot(w, w, axes=((0, 1), (0, 1))))
     dw_reg = reg * w  # differential of w_reg by w
 
     loss = loss / float(n_train) + w_reg
@@ -75,10 +77,9 @@ def softmax_loss_vectorized(w, x, y, reg):
     :return: Same as above
     """
 
-    # dw = np.zeros(w.shape)
+    dw = np.zeros_like(w)
 
-    n_train = x.shape[1]
-    # n_classes = dw.shape[0]
+    n_train = x.shape[0]
 
     #############################################################################
     # TODO: Compute the softmax loss and its gradient using no explicit loops.  #
@@ -87,15 +88,14 @@ def softmax_loss_vectorized(w, x, y, reg):
     # regularization!                                                           #
     #############################################################################
 
-    score = w.dot(x)
-    stability = -np.max(score, axis=0)
+    score = x.dot(w)
+    stability = -np.max(score)
 
-    score = score + stability
-    exp_score = np.exp(score)
-    exp_score_sum = np.sum(exp_score, axis=0)
+    exp_score = np.exp(score + stability)
+    exp_score_sum = np.sum(exp_score)
 
     # L2 regularization
-    w_reg = .5 * reg * np.sum(np.power(w, 2))
+    w_reg = .5 * reg * float(np.tensordot(w, w, axes=((0, 1), (0, 1))))
     dw_reg = reg * w  # differential of w_reg by w
 
     loss = np.log(exp_score_sum) - score[y, np.arange(n_train)]
