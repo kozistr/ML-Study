@@ -52,9 +52,9 @@ class KNearestNeighbor:
         """
 
         if num_loops == 0:
-            distances = self.no_loops(x)
+            distances = self.no_loop(x)
         elif num_loops == 1:
-            distances = self.one_loops(x)
+            distances = self.one_loop(x)
         elif num_loops == 2:
             distances = self.two_loops(x)
         else:
@@ -62,7 +62,7 @@ class KNearestNeighbor:
 
         return self.predict_labels(distances=distances, k=k)
 
-    def no_loops(self, x):
+    def no_loop(self, x):
         """
         Compute the distance between each test point in X and each training point in self.X_train
         using no explicit loops.
@@ -98,7 +98,7 @@ class KNearestNeighbor:
 
         return distance
 
-    def one_loops(self, x):
+    def one_loop(self, x):
         """
         Compute the distance between each test point in X and each training point in self.X_train using a single loop
         over the test data.
