@@ -56,9 +56,9 @@ def vis_grid(Xs):
 
     for y in range(A):
         for x in range(A):
-        if n < N:
-            G[y*H+y:(y+1)*H+y, x*W+x:(x+1)*W+x, :] = Xs[n, :, :, :]
-            n += 1
+            if n < N:
+                G[y*H+y:(y+1)*H+y, x*W+x:(x+1)*W+x, :] = Xs[n, :, :, :]
+                n += 1
 
     # normalize to [0,1]
     max_g = G.max()
@@ -78,7 +78,7 @@ def vis_nn(rows):
 
     for y in range(N):
         for x in range(D):
-        G[y*H+y:(y+1)*H+y, x*W+x:(x+1)*W+x, :] = rows[y][x]
+            G[y*H+y:(y+1)*H+y, x*W+x:(x+1)*W+x, :] = rows[y][x]
 
     # normalize to [0,1]
     max_g = G.max()
