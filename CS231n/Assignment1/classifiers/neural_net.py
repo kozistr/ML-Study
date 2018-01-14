@@ -71,7 +71,7 @@ class TwoLayerNet(object):
         #############################################################################
 
         h1 = x.dot(w1) + b1       # fc layer
-        a1 = np.maximum(0., h1)    # ReLU Activation
+        a1 = np.maximum(0, h1)    # ReLU Activation
 
         scores = a1.dot(w2) + b2  # fc layer
 
@@ -92,15 +92,17 @@ class TwoLayerNet(object):
         # regularization loss by 0.5                                                #
         #############################################################################
 
-        exp_scores = np.exp(scores)
-        prob = exp_scores / np.sum(scores, axis=1, keepdims=True)  # softmax loss
+        # Softmax loss
+        instability = -np.row_stack(np.max(scores, axis=1))
+
+        scores = np.exp(scores + instability)  # solve numeric instability
+        scores /= np.row_stack(np.sum(scores, axis=1)).astype(float)
+
+        data_loss = np.sum(-np.log(scores[np.arange(n), y])) / float(n)
 
         # Average cross-entropy loss & regularization
-        correct_log_prob = -np.log(prob[y, np.arange(n)])
-        data_loss = np.sum(correct_log_prob) / n
-
-        w1_reg = .5 * reg * np.sum(np.power(w1, 2))
-        w2_reg = .5 * reg * np.sum(np.power(w2, 2))
+        w1_reg = .5 * reg * float(np.tensordot(w1, w1, axes=((0, 1), (0, 1))))
+        w2_reg = .5 * reg * float(np.tensordot(w2, w2, axes=((0, 1), (0, 1))))
         w_reg = w1_reg + w2_reg
 
         loss = data_loss + w_reg
@@ -118,23 +120,23 @@ class TwoLayerNet(object):
         #############################################################################
 
         # compute the gradient on scores
-        d_scores = prob
-        d_scores[y, np.arange(n)] -= 1.
-        d_scores /= n
+        d_scores = scores
+        d_scores[np.arange(n), y] -= 1.
+        d_scores /= float(n)
 
         # back-prop w1, b1
-        grads['W2'] = np.dot(a1.T, d_scores)
-        grads['b2'] = np.sum(d_scores, axis=0)
+        grads['W2'] = np.dot(a1.T, d_scores)  # + w2_reg
+        grads['b2'] = np.sum(d_scores)
 
         # back-prop hidden layer
         d_hidden = np.dot(d_scores, w2.T)
 
         # back-prop ReLU Activation
-        d_hidden[a1 <= 0.] = 0.
+        d_hidden[a1 <= 0] = 0.
 
         # back-prop w1, b1
-        grads['W1'] = np.dot(x.T, d_scores)
-        grads['b1'] = np.sum(d_hidden, axis=0)
+        grads['W1'] = np.dot(x.T, d_hidden)  # + w1_reg
+        grads['b1'] = np.sum(d_hidden)
 
         # add regularization gradient contribution
         dw2_reg = reg * w2
@@ -213,7 +215,7 @@ class TwoLayerNet(object):
 
             # logging
             if it % 100 == 0:
-                print("[+] Iter %04d, loss : {.:8f}".format(it, np.mean(loss_history)))
+                print("[+] Iter {}, loss : {}".format(it, loss))
 
             # Every epoch, check train and val accuracy and decay learning rate.
             if it % iterations_per_epoch == 0:
