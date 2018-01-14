@@ -77,8 +77,6 @@ def softmax_loss_vectorized(w, x, y, reg):
     :return: Same as above
     """
 
-    dw = np.zeros_like(w)
-
     n_train = x.shape[0]
 
     #############################################################################
@@ -88,22 +86,22 @@ def softmax_loss_vectorized(w, x, y, reg):
     # regularization!                                                           #
     #############################################################################
 
-    score = x.dot(w)
-    stability = -np.max(score)
+    scores = x.dot(w)
+    instability = -np.row_stack(np.max(scores, axis=1))
 
-    exp_score = np.exp(score + stability)
-    exp_score_sum = np.sum(exp_score)
+    scores += instability  # solve numeric instability
+    scores = np.exp(scores)
+    scores /= np.row_stack(np.sum(scores, axis=1)).astype(float)
 
     # L2 regularization
     w_reg = .5 * reg * float(np.tensordot(w, w, axes=((0, 1), (0, 1))))
     dw_reg = reg * w  # differential of w_reg by w
 
-    loss = np.log(exp_score_sum) - score[y, np.arange(n_train)]
-    loss = np.sum(loss) / float(n_train) + w_reg
+    loss = np.sum(-np.log(scores[np.arange(n_train), y])) / float(n_train) + w_reg
 
-    dw = exp_score / exp_score_sum
-    dw[y, np.arange(n_train)] += -1.
-    dw = dw.dot(x.T) / float(n_train) + dw_reg
+    dw = scores
+    dw[np.arange(n_train), y] -= 1
+    dw = x.T.dot(dw) / float(n_train) + dw_reg
 
     #############################################################################
     #                          END OF YOUR CODE                                 #
