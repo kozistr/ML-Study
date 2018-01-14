@@ -86,7 +86,7 @@ class LinearClassifier(object):
             #########################################################################
 
             if i % self.log_iters == 0:
-                print("[+] Iter %04d, loss : {.:8f}".format(i, np.mean(losses)))
+                print("[+] Iter {}, loss : {}".format(i, loss))
 
         return losses
 
@@ -105,8 +105,8 @@ class LinearClassifier(object):
         # Implement this method. Store the predicted labels in y_pred.            #
         ###########################################################################
 
-        scores = self.W.dot(x)
-        y_prediction = scores.argmax(axis=0)
+        scores = np.dot(x, self.W)
+        y_prediction = np.argmax(scores, axis=1)
 
         ###########################################################################
         #                           END OF YOUR CODE                              #
