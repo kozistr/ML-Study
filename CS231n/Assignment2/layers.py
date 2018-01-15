@@ -130,12 +130,12 @@ def batchnorm_forward(x, gamma, beta, bn_param):
     Forward pass for batch normalization.
 
     During training the sample mean and (uncorrected) sample variance are
-    computed from minibatch statistics and used to normalize the incoming data.
+    computed from mini-batch statistics and used to normalize the incoming data.
     During training we also keep an exponentially decaying running mean of the
     mean and variance of each feature, and these averages are used to normalize
     data at test-time.
 
-    At each timestep we update the running averages for mean and variance using
+    At each time-step we update the running averages for mean and variance using
     an exponential decay based on the momentum parameter:
 
     running_mean = momentum * running_mean + (1 - momentum) * sample_mean
@@ -150,7 +150,7 @@ def batchnorm_forward(x, gamma, beta, bn_param):
 
     :param x: Data of shape (N, D)
     :param gamma: Scale parameter of shape (D,)
-    :param beta: Shift paremeter of shape (D,)
+    :param beta: Shift parameter of shape (D,)
     :param bn_param: Dictionary with the following keys:
         - mode: 'train' or 'test'; required
         - eps: Constant for numeric stability
@@ -186,7 +186,9 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         # variance, storing your result in the running_mean and running_var   #
         # variables.                                                          #
         #######################################################################
+
         pass
+
         #######################################################################
         #                           END OF YOUR CODE                          #
         #######################################################################
@@ -197,7 +199,9 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         # then scale and shift the normalized data using gamma and beta.      #
         # Store the result in the out variable.                               #
         #######################################################################
+
         pass
+
         #######################################################################
         #                          END OF YOUR CODE                           #
         #######################################################################
@@ -305,7 +309,11 @@ def dropout_forward(x, dropout_param):
         # TODO: Implement training phase forward pass for inverted dropout.   #
         # Store the dropout mask in the mask variable.                        #
         #######################################################################
-        pass
+
+        # mask = (np.random.rand(*x.shape) < p)
+        mask = (np.random.rand(*x.shape) < p) / p
+        out = x * mask  # drop
+
         #######################################################################
         #                           END OF YOUR CODE                          #
         #######################################################################
@@ -313,7 +321,10 @@ def dropout_forward(x, dropout_param):
         #######################################################################
         # TODO: Implement the test phase forward pass for inverted dropout.   #
         #######################################################################
-        pass
+
+        # out = x * p
+        out = x
+
         #######################################################################
         #                            END OF YOUR CODE                         #
         #######################################################################
@@ -340,7 +351,9 @@ def dropout_backward(dout, cache):
         #######################################################################
         # TODO: Implement training phase backward pass for inverted dropout   #
         #######################################################################
-        pass
+
+        dx = mask * dout
+
         #######################################################################
         #                          END OF YOUR CODE                           #
         #######################################################################
