@@ -12,7 +12,7 @@ Inputs:
   - w: A numpy array giving the current weights.
   - dw: A numpy array of the same shape as w giving the gradient of the
     loss with respect to w.
-  - config: A dictionary containing hyperparameter values such as learning
+  - config: A dictionary containing hyper-parameter values such as learning
     rate, momentum, etc. If the update rule requires caching values over many
     iterations, then config will also hold these cached values.
 
@@ -22,7 +22,7 @@ Returns:
     update rule.
 
 NOTE: For most update rules, the default learning rate will probably not
-perform well; however the default values of the other hyperparameters should
+perform well; however the default values of the other hyper-parameters should
 work well for a variety of different problems.
 
 For efficiency, update rules may perform in-place updates, mutating w and
@@ -51,7 +51,7 @@ def sgd_momentum(w, dw, config=None):
     """
     Performs stochastic gradient descent with momentum.
 
-    :param config: config format:
+    :param config:
         - learning_rate: Scalar learning rate.
         - momentum: Scalar between 0 and 1 giving the momentum value.
           Setting momentum = 0 reduces to sgd.
@@ -66,12 +66,14 @@ def sgd_momentum(w, dw, config=None):
     config.setdefault('momentum', 0.9)
     v = config.get('velocity', np.zeros_like(w))
 
-    next_w = None
     ###########################################################################
     # TODO: Implement the momentum update formula. Store the updated value in #
     # the next_w variable. You should also use and update the velocity v.     #
     ###########################################################################
-    pass
+
+    v = config['momentum'] * v - config['learning_rate'] * dw
+    next_w = w + v
+
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
@@ -85,7 +87,7 @@ def rmsprop(x, dx, config=None):
     Uses the RMSProp update rule, which uses a moving average of squared
     gradient values to set adaptive per-parameter learning rates.
 
-    :param config format:
+    :param config:
         - learning_rate: Scalar learning rate.
         - decay_rate: Scalar between 0 and 1 giving the decay rate for the squared
           gradient cache.
@@ -101,13 +103,21 @@ def rmsprop(x, dx, config=None):
     config.setdefault('epsilon', 1e-8)
     config.setdefault('cache', np.zeros_like(x))
 
-    next_x = None
     ###########################################################################
     # TODO: Implement the RMSprop update formula, storing the next value of x #
     # in the next_x variable. Don't forget to update cache value stored in    #
     # config['cache'].                                                        #
     ###########################################################################
-    pass
+
+    lr = config['learning_rate']
+    decay_rate = config['decay_rate']
+    eps = config['epsilon']
+
+    cache = decay_rate * config['cache'] + (1 - decay_rate) * (dx ** 2)
+    next_x = x + (- lr * dx) / (np.sqrt(cache) + eps)
+
+    config['cache'] = cache
+
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
@@ -120,7 +130,7 @@ def adam(x, dx, config=None):
     Uses the Adam update rule, which incorporates moving averages of both the
     gradient and its square and a bias correction term.
 
-    :param config format:
+    :param config:
         - learning_rate: Scalar learning rate.
         - beta1: Decay rate for moving average of first moment of gradient.
         - beta2: Decay rate for moving average of second moment of gradient.
@@ -141,13 +151,31 @@ def adam(x, dx, config=None):
     config.setdefault('v', np.zeros_like(x))
     config.setdefault('t', 1)
 
-    next_x = None
     ###########################################################################
     # TODO: Implement the Adam update formula, storing the next value of x in #
     # the next_x variable. Don't forget to update the m, v, and t variables   #
     # stored in config.                                                       #
     ###########################################################################
-    pass
+
+    m = config['m']
+    v = config['v']
+    t = config['t']
+    beta1 = config['beta1']
+    beta2 = config['beta2']
+    eps = config['epsilon']
+
+    m = beta1 * m + (1 - beta1) * dx
+    v = beta2 * v + (1 - beta2) * (dx ** 2)
+
+    m /= 1 - beta1 ** t  # correcting bias
+    v /= 1 - beta2 ** t  # correcting bias
+
+    next_x = x + (- config['learning_rate'] * m) / (np.sqrt(v) + eps)
+
+    config['m'] = m
+    config['v'] = v
+    config['t'] = t
+
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
