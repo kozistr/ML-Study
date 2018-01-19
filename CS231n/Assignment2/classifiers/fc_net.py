@@ -322,6 +322,10 @@ class FullyConnectedNet(object):
                 else:
                     dout, grads["W" + str(i + 1)], grads["b" + str(i + 1)] = affine_relu_backward(dout, cache)
 
+        # L2 regularization
+        for i in range(self.num_layers):
+            grads['W' + str(i + 1)] += self.reg * self.params['W' + str(i + 1)]
+
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################
