@@ -217,11 +217,11 @@ def batchnorm_forward(x, gamma, beta, bn_param):
         # Store the result in the out variable.                               #
         #######################################################################
 
-        # sample_mean = np.mean(x)
-        # sample_var = np.var(x)
+        sample_mean = np.mean(x)
+        sample_var = np.var(x)
 
         # normalize
-        x_norm = (x - running_mean) / np.sqrt(running_var + eps)
+        x_norm = (x - sample_mean) / np.sqrt(sample_var + eps)
 
         out = gamma * x_norm + beta
 
@@ -268,6 +268,9 @@ def batchnorm_backward(dout, cache):
     # beta = cache['beta']
     eps = cache['eps']
 
+    dgamma = np.sum(x_norm * dout)
+    dbeta = np.sum(dout)
+
     sample_mean = cache['sample_mean']
     sample_var = cache['sample_var']
 
@@ -278,8 +281,6 @@ def batchnorm_backward(dout, cache):
         d_sample_var * (-2. / n) * np.sum(x - sample_mean)
 
     dx = d_x_norm * (sample_var + eps) ** (-.5) + d_sample_mean * (1. / n) + d_sample_var * (2. / n) * (x - sample_mean)
-    dgamma = np.sum(x_norm * dout)
-    dbeta = np.sum(dout)
 
     ###########################################################################
     #                             END OF YOUR CODE                            #
@@ -325,7 +326,7 @@ def batchnorm_backward_alt(dout, cache):
 
     dx = (gamma / np.sqrt(sample_var + eps)) * \
          (dout - np.mean(dout) - ((x - sample_mean) / (n * (sample_var + eps))) * np.sum(dout * (x - sample_mean)))
-    dgamma = np.sum(dout * x_norm)
+    dgamma = np.sum(x_norm * dout)
     dbeta = np.sum(dout)
 
     ###########################################################################
