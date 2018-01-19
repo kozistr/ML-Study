@@ -457,7 +457,7 @@ def conv_forward_naive(x, w, b, conv_param):
     pad = conv_param['pad']
 
     # zero padding
-    x_pad = np.pad(x, ((0,), (0,), (pad,), (pad,)), 'constant', constant_values=(0, 0, 0, 0))
+    x_pad = np.pad(x, ((0,), (0,), (pad,), (pad,)), 'constant')
 
     h_ = 1 + (h + 2 * pad - hh) / stride
     w_ = 1 + (h + 2 * pad - ww) / stride
@@ -497,7 +497,46 @@ def conv_backward_naive(dout, cache):
     ###########################################################################
     # TODO: Implement the convolutional backward pass.                        #
     ###########################################################################
-    pass
+
+    x, w, b, conv_param = cache
+    stride = conv_param['stride']
+    pad = conv_param['pad']
+
+    n, c, h, w = x.shape
+    f, c, hh, ww = w.shape
+    n, f, hhh, www = dout.shape
+
+    dx, dw, db = np.zeros_like(x), np.zeros_like(w), np.zeros_like(b)
+
+    x_pad = np.pad(x, ((0,), (0,), (pad,), (pad,)), 'constant')
+
+    for i in range(f):
+        for j in range(c):
+            for k in range(hh):
+                for l in range(ww):
+                    sub_x_pad = x_pad[:, j, k:j + hhh * stride:stride, l:l + www * stride:stride]
+                    dw[i, j, k, l] = np.sum(dout[:, i, :, :] * sub_x_pad)
+
+    db = np.sum(dout, axis=(0, 2, 3))
+
+    for i in range(n):
+        for j in range(h):
+            for k in range(w):
+                for l in range(f):
+                    for o in range(hhh):
+                        for p in range(www):
+                            mask_1 = np.zeros_like(w[f, :, :, :])
+                            mask_2 = np.zeros_like(mask_1)
+
+                            if 0 <= j + pad - o * stride < hh:
+                                mask_1[:, j + pad - o * stride, :] = 1.
+
+                            if 0 <= k + pad - p * stride < ww:
+                                mask_2[:, :, k + pad - p * stride] = 1.
+
+                            w_mask = np.sum(w[f, :, :, :] * mask_1 * mask_2, axis=(1, 2))
+                            dx[i, :, j, k] += dout[i, f, k, l] * w_mask
+
     ###########################################################################
     #                             END OF YOUR CODE                            #
     ###########################################################################
@@ -519,6 +558,7 @@ def max_pool_forward_naive(x, pool_param):
         - out: Output data
         - cache: (x, pool_param)
     """
+
     out = None
     ###########################################################################
     # TODO: Implement the max pooling forward pass                            #
