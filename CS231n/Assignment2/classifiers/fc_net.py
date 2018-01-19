@@ -53,7 +53,7 @@ class TwoLayerNet(object):
         self.params['b1'] = np.zeros(hidden_dim)
 
         self.params['W2'] = np.random.normal(loc=0, scale=weight_scale, size=(hidden_dim, num_classes))
-        self.params['b1'] = np.zeros(num_classes)
+        self.params['b2'] = np.zeros(num_classes)
 
         ############################################################################
         #                             END OF YOUR CODE                             #
@@ -187,7 +187,13 @@ class FullyConnectedNet(object):
         # beta2, etc. Scale parameters should be initialized to one and shift      #
         # parameters should be initialized to zero.                                #
         ############################################################################
-        pass
+
+        self.params['W1'] = np.random.normal(loc=0, scale=weight_scale, size=(input_dim, hidden_dims))
+        self.params['b1'] = np.zeros(hidden_dims)
+
+        self.params['W2'] = np.random.normal(loc=0, scale=weight_scale, size=(hidden_dims, num_classes))
+        self.params['b1'] = np.zeros(num_classes)
+
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################
