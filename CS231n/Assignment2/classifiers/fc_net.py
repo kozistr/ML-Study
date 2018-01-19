@@ -218,7 +218,8 @@ class FullyConnectedNet(object):
         self.bn_params = []
         if self.use_batchnorm:
             for i in range(self.num_layers - 1):
-                self.bn_params['bn_param' + str(i + 1)] = {'mode': 'train'}
+                self.bn_params = [{'mode': 'train'} for i in range(self.num_layers - 1)]
+
                 self.params['gamma' + str(i + 1)] = np.ones(dims[i + 1])
                 self.params['beta' + str(i + 1)] = np.zeros(dims[i + 1])
 
@@ -270,7 +271,7 @@ class FullyConnectedNet(object):
                     beta = self.params['beta' + str(i + 1)]
                     bn_param = self.bn_params[i]
 
-                    data_in, caches[i] = affine_bn_relu_forward(data_in. w, b, gamma, beta, bn_param)
+                    data_in, caches[i] = affine_bn_relu_forward(data_in, w, b, gamma, beta, bn_param)
                 else:
                     data_in, caches[i] = affine_relu_forward(data_in, w, b)
 
