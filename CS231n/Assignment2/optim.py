@@ -167,14 +167,14 @@ def adam(x, dx, config=None):
     m = beta1 * m + (1 - beta1) * dx
     v = beta2 * v + (1 - beta2) * (dx ** 2)
 
-    m /= 1 - beta1 ** t  # correcting bias
-    v /= 1 - beta2 ** t  # correcting bias
+    mt = m / (1 - beta1 ** t)  # correcting bias
+    vt = v / (1 - beta2 ** t)  # correcting bias
 
-    next_x = x + (- config['learning_rate'] * m) / (np.sqrt(v) + eps)
+    next_x = x + (- config['learning_rate'] * mt) / (np.sqrt(vt) + eps)
 
     config['m'] = m
     config['v'] = v
-    config['t'] = t
+    config['t'] = t + 1
 
     ###########################################################################
     #                             END OF YOUR CODE                            #
