@@ -323,8 +323,13 @@ class FullyConnectedNet(object):
                     dout, grads["W" + str(i + 1)], grads["b" + str(i + 1)] = affine_relu_backward(dout, cache)
 
         # L2 regularization
+        w_square = 0.
         for i in range(self.num_layers):
+            w_square += float(np.tensordot(self.params['W' + str(i + 1)], self.params['W' + str(i + 1)],
+                                           axes=((0, 1), (0, 1))))
             grads['W' + str(i + 1)] += self.reg * self.params['W' + str(i + 1)]
+
+        loss += self.reg * w_square
 
         ############################################################################
         #                             END OF YOUR CODE                             #
