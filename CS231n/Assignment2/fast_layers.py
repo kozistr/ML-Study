@@ -2,8 +2,8 @@ from __future__ import print_function
 
 import numpy as np
 try:
-    from cs231n.im2col_cython import col2im_cython, im2col_cython
-    from cs231n.im2col_cython import col2im_6d_cython
+    from im2col_cython import col2im_cython, im2col_cython
+    from im2col_cython import col2im_6d_cython
 except ImportError:
     print('run the following from the cs231n directory and try again:')
     print('python setup.py build_ext --inplace')
