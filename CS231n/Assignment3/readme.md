@@ -1,5 +1,9 @@
 ## CS231n Assignment 3
-*  with numpy - **not yet**
-*  with numpy - **not yet**
-*  with numpy - **not yet**
-*  with numpy - **not yet**
+* Q1 : Image Captioning with Vanilla RNNs - **not yet**
+* Q2 : Image Captioning with LSTMs - **not yet**
+* Q3 : Network Visualization: Saliency maps, Class Visualization, and Fooling Images - **not yet**
+* Q4 : Style Transfer - **not yet**
+* Q5 :  Generative Adversarial Networks - **not yet**
+
+## Reference
+* http://cs231n.github.io/assignments2017/assignment3/
