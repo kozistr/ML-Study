@@ -4,4 +4,4 @@
 
 2. Standford CS20 2018 : Tensorflow for Deep Learning Research
 
-3.
+3. Standfork CS229 2017 : Machine Learning 
