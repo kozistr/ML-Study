@@ -6,4 +6,6 @@
 
 3. Stanford CS229 2017 : Machine Learning 
 
-4.
+4. Read https://ratsgo.github.io/blog/categories/
+
+5. 
