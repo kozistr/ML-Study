@@ -6,15 +6,15 @@
 
 3. Stanford CS229 2017 : Machine Learning 
 
-4. Read https://ratsgo.github.io/blog/categories/
+4. Oxford CS deepnlp 2017 : https://github.com/oxford-cs-deepnlp-2017/lectures
 
-5. Read http://efavdb.com/gaussian-processes/
+5. Read https://ratsgo.github.io/blog/categories/
 
-6. Read http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html
+6. Read http://efavdb.com/gaussian-processes/
 
-7. Read http://efavdb.com/gaussian-processes/
+7. Read http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html
 
-8. Oxford CS deepnlp 2017 : https://github.com/oxford-cs-deepnlp-2017/lectures
+8. Read http://efavdb.com/gaussian-processes/
 
 9. Read https://www.zabaras.com/statisticalcomputing
 
