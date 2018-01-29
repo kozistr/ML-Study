@@ -18,4 +18,4 @@
 
 9. Read https://www.zabaras.com/statisticalcomputing
 
-10.
+10. Complete ![Awesome-GANs](https://github.com/kozistr/Awesome-GANs/)
