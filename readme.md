@@ -18,4 +18,8 @@
 
 9. Read https://www.zabaras.com/statisticalcomputing
 
-10. Complete Awesome-GANs : https://github.com/kozistr/Awesome-GANs/
+10. Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/
+
+11. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices
+
+12. 
