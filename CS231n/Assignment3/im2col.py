@@ -1,4 +1,3 @@
-from builtins import range
 import numpy as np
 
 
@@ -52,5 +51,6 @@ def col2im_indices(cols, x_shape, field_height=3, field_width=3, padding=1,
     if padding == 0:
         return x_padded
     return x_padded[:, :, padding:-padding, padding:-padding]
+
 
 pass

@@ -3,8 +3,8 @@ from builtins import range
 from builtins import object
 import numpy as np
 
-from cs231n import optim
-from cs231n.coco_utils import sample_coco_minibatch
+import optim
+from coco_utils import sample_coco_minibatch
 
 
 class CaptioningSolver(object):
@@ -115,7 +115,6 @@ class CaptioningSolver(object):
 
         self._reset()
 
-
     def _reset(self):
         """
         Set up some book-keeping variables for optimization. Don't call this
@@ -135,7 +134,6 @@ class CaptioningSolver(object):
             d = {k: v for k, v in self.optim_config.items()}
             self.optim_configs[p] = d
 
-
     def _step(self):
         """
         Make a single gradient update. This is called by train() and should not
@@ -143,8 +141,8 @@ class CaptioningSolver(object):
         """
         # Make a minibatch of training data
         minibatch = sample_coco_minibatch(self.data,
-                      batch_size=self.batch_size,
-                      split='train')
+                                          batch_size=self.batch_size,
+                                          split='train')
         captions, features, urls = minibatch
 
         # Compute loss and gradient
@@ -158,7 +156,6 @@ class CaptioningSolver(object):
             next_w, next_config = self.update_rule(w, dw, config)
             self.model.params[p] = next_w
             self.optim_configs[p] = next_config
-
 
     # TODO: This does nothing right now; maybe implement BLEU?
     def check_accuracy(self, X, y, num_samples=None, batch_size=100):
@@ -202,7 +199,6 @@ class CaptioningSolver(object):
 
         return acc
 
-
     def train(self):
         """
         Run optimization to train the model.
@@ -217,7 +213,7 @@ class CaptioningSolver(object):
             # Maybe print training loss
             if self.verbose and t % self.print_every == 0:
                 print('(Iteration %d / %d) loss: %f' % (
-                       t + 1, num_iterations, self.loss_history[-1]))
+                    t + 1, num_iterations, self.loss_history[-1]))
 
             # At the end of every epoch, increment the epoch counter and decay the
             # learning rate.

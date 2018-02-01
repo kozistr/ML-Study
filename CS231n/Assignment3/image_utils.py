@@ -1,8 +1,10 @@
 from __future__ import print_function
-from future import standard_library
-standard_library.install_aliases()
-from builtins import range
-import urllib.request, urllib.error, urllib.parse, os, tempfile
+
+import urllib.request
+import urllib.error
+import urllib.parse
+import os
+import tempfile
 
 import numpy as np
 from scipy.misc import imread, imresize
@@ -10,6 +12,7 @@ from scipy.misc import imread, imresize
 """
 Utility functions used for viewing and processing images.
 """
+
 
 def blur_image(X):
     """
@@ -22,7 +25,7 @@ def blur_image(X):
     Returns:
     - X_blur: Blurred version of X, of shape (N, 3, H, W)
     """
-    from cs231n.fast_layers import conv_forward_fast
+    from fast_layers import conv_forward_fast
     w_blur = np.zeros((3, 3, 3, 3))
     b_blur = np.zeros(3)
     blur_param = {'stride': 1, 'pad': 1}
@@ -36,12 +39,13 @@ def blur_image(X):
 SQUEEZENET_MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
 SQUEEZENET_STD = np.array([0.229, 0.224, 0.225], dtype=np.float32)
 
+
 def preprocess_image(img):
     """Preprocess an image for squeezenet.
     
     Subtracts the pixel mean and divides by the standard deviation.
     """
-    return (img.astype(np.float32)/255.0 - SQUEEZENET_MEAN) / SQUEEZENET_STD
+    return (img.astype(np.float32) / 255.0 - SQUEEZENET_MEAN) / SQUEEZENET_STD
 
 
 def deprocess_image(img, rescale=False):
