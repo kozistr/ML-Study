@@ -22,4 +22,6 @@
 
 11. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices
 
-12. 
+12. Find about Real-Time Image Captioning for embedded devices
+
+13. 
