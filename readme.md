@@ -24,4 +24,6 @@
 
 12. Find about Real-Time Image Captioning for embedded devices
 
-13. 
+13. Join Kaggle : Plant Seedlings Classification
+
+14.
