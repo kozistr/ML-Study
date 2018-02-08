@@ -241,7 +241,7 @@ class CaptioningRNN(object):
             if self.cell_type == 'rnn':
                 h, c = rnn_step_forward(words_vec, h, Wx, Wh, b)
             elif self.cell_type == 'rnn':
-                h, c = lstm_step_forward(words_vec, h, Wx, Wh, b)
+                h, c, _ = lstm_step_forward(words_vec, h, c, Wx, Wh, b)
             else:
                 raise NotImplementedError
 
