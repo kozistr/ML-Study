@@ -3,49 +3,116 @@ Sedong Nam 1월 14일 오후 9:06
 
 1년 이하 정도 딥러닝을 열심히 해 본 개발자들이 일정 수준 이상으로 잘 대답할 것으로 기대하는 질문들이다.
 
-1. 요즘 Sigmoid 보다 ReLU를 많이 쓰는데 그 이유는?
+Q1. 요즘 Sigmoid 보다 ReLU를 많이 쓰는데 그 이유는?
 
-+ Non-Linearity라는 말의 의미와 그 필요성은?
+A1 : 
+1. ReLU 가 Sigmoid 보다 cost-efficient 하다. ( exp(x) cost 가 비싸다. )
+2. Sigmoid 는 zero-centered 되있지 않다. 항상 양수인 값이 들어오게 되면 weight 에 대한 gradient 는 모두
+positive 하거나 negative 해진다 (극단적으로).
+3. |x| > 10 구간에서 gradient vanishing 이 발생한다.
+4. [더 있으면 후에 더 추가]
+
++ Non-Linearity 라는 말의 의미와 그 필요성은?
+
+말대로 함수가 비선형이라는 뜻과 당연하게 비선형성의 Activation Function 이 사용되어야 한다.
+이유는 다양하고 깊게 neural network 를 만드려고.
+
 + ReLU로 어떻게 곡선 함수를 근사하나?
+
+곡선을 구간 미분해 그 부분을 연결하면 선형이듯(?) 곡선 함수에 부분 적으로 선형 함수인 ReLU 를 근사한다.
+
 + ReLU의 문제점은?
+
+1. 여전히 zero-centered 가 아니다.
+2. x < 0 에서의 gradient 는 다 0이 되 버린다.
+
 + Bias는 왜 있는걸까?
 
-2. Gradient Descent에 대해서 쉽게 설명한다면?
+예를 들면, 단순한 선형 함수만으로는 W 와 5 * W 를 구별 할 수가 없기 때문이다.
 
-+ 왜 꼭 Gradient를 써야 할까?
+2. Gradient Descent 에 대해서 쉽게 설명한다면?
+
+A. 곡선 함수를 미분해 가며 최소의 기울기, 즉 loss 를 찾아가는 과정.
+
++ 왜 꼭 Gradient 를 써야 할까?
+
+A. loss 의 정도를 구하기 위해(?) // 더 찾아볼 것
+
 + 그 그래프에서 가로축과 세로축 각각은 무엇인가?
+
+A. 가로축은 , 세로축은
+
 + 실제 상황에서는 그 그래프가 어떻게 그려질까?
-+ GD 중에 때때로 Loss가 증가하는 이유는?
+
+A. 3차원 굴곡이 있는 표면!
+
++ GD 중에 때때로 Loss 가 증가하는 이유는?
+
+A. GD 중 여러 굴곡을 만나는 데, 올라가는 굴곡을 만났을 때.
+
 + 중학생이 이해할 수 있게 더 쉽게 설명 한다면?
-+ Back Propagation에 대해서 쉽게 설명 한다면?
+
+A. 위에가 최선..?!
+
++ Back Propagation 에 대해서 쉽게 설명 한다면?
+
+A. 차이를 줄이기 위해 계산한 값을 출발지에 다시 보내는 과정.
 
 3. Local Minima 문제에도 불구하고 딥러닝이 잘 되는 이유는?
 
 + GD가 Local Minima 문제를 피하는 방법은?
-+ 찾은 해가 Global Minimum인지 아닌지 알 수 있는 방법은?
 
-4. CNN에 대해서 아는대로 얘기하라
+A. 띠용...!? 읎는거 같다...
 
-+ CNN이 MLP보다 좋은 이유는?
-+ 어떤 CNN의 파라메터 개수를 계산해 본다면?
-+ 주어진 CNN과 똑같은 MLP를 만들 수 있나?
-+ 풀링시에 만약 Max를 사용한다면 그 이유는?
-+ 시퀀스 데이터에 CNN을 적용하는 것이 가능할까?
++ 찾은 해가 Global Minimum 인지 아닌지 알 수 있는 방법은?
+
+A. 음... 아직까진 Global Minimum 을 구하는 방법은 알 수가 없고 (불가능), 
+2 개의 neural net 인 경우에 SGD 를 사용해서 Global Minimum 을 구하는 방법 까지는 증명되었음.
+
+4. CNN 에 대해서 아는대로 얘기하라
+
+A. Convolutional Neural Network 로 주로 image classification 에 자주 사용되는 네트워크다.
+사용 되는 하이퍼 파라메터로는 stride 크기, kernel 크기, padding, filter 크기.
+
++ CNN 이 MLP 보다 좋은 이유는?
+
+A. 직관적으로 딱 하나만 봤을 때 MLP 보다 feature 수용량이 크다. 즉, 네트워크가 크다.
+
++ 어떤 CNN 의 파라메터 개수를 계산해 본다면?
+
+A. 단순히 하나 CNN 을 본다면, (input_filter * k_s * k_w) * output_filter 정도가 될 거 같다.
+
++ 주어진 CNN 과 똑같은 MLP 를 만들 수 있나?
+
+A. 흠.... 가능할거 같다.
+
++ 풀링시에 만약 Max 를 사용한다면 그 이유는?
+
+A. 음... pooling 자체는 sub sampling 을 통해 데이터 사이즈를 줄이고 (cost efficient), 각 영역들이 대푯값을 추출해서 feature 는 그래도 유지한다.
+그런데 avg pooling 대신 max pooling 을 사용하는 거의 차이라면 avg 보다 max pooling 이 더 cost efficient 해서?!...
+
++ 시퀀스 데이터에 CNN 을 적용하는 것이 가능할까?
+
+A. 입력받은 각 sequence data 를 2d vectorize 한 다음에 CNN 을 적용해도 가능하긴 할 거 같다.
 
 5. Word2Vec의 원리는?
+
+A. 단어들을 학습이 가능한 특정한 벡터로 embedding 하는 과정. 
 
 + 그 그림에서 왼쪽 파라메터들을 임베딩으로 쓰는 이유는?
 + 그 그림에서 오른쪽 파라메터들의 의미는 무엇일까?
 + 남자와 여자가 가까울까? 남자와 자동차가 가까울까?
-+ 번역을 Unsupervised로 할 수 있을까?
++ 번역을 Unsupervised 로 할 수 있을까?
 
-6. Auto Encoder에 대해서 아는대로 얘기하라
+6. Auto Encoder 에 대해서 아는대로 얘기하라
 
-+ MNIST AE를 TF나 Keras등으로 만든다면 몇줄일까?
-+ MNIST에 대해서 임베딩 차원을 1로 해도 학습이 될까?
++ MNIST AE를 TF나 Keras 등으로 만든다면 몇줄일까?
++ MNIST 에 대해서 임베딩 차원을 1로 해도 학습이 될까?
 + 임베딩 차원을 늘렸을 때의 장단점은?
 + AE 학습시 항상 Loss를 0으로 만들수 있을까?
-+ VAE는 무엇인가?
++ VAE 는 무엇인가?
+
+A. Various Auto Encoder 로 
 
 7. Training 세트와 Test 세트를 분리하는 이유는?
 
