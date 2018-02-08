@@ -1,5 +1,5 @@
 ## CS231n Assignment 3
-* Q1 : Image Captioning with Vanilla RNNs - **not yet**
+* Q1 : Image Captioning with Vanilla RNNs - **Done**
 * Q2 : Image Captioning with LSTMs - **not yet**
 * Q3 : Network Visualization: Saliency maps, Class Visualization, and Fooling Images - **not yet**
 * Q4 : Style Transfer - **not yet**

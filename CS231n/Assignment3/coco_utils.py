@@ -2,7 +2,8 @@ import os, json
 import numpy as np
 import h5py
 
-BASE_DIR = 'D:/Dataset/coco_captioning'
+
+BASE_DIR = 'D:/Dataset/coco_captioning/2014/'
 
 
 def load_coco_data(base_dir=BASE_DIR,

@@ -134,7 +134,40 @@ class CaptioningRNN(object):
         # defined above to store loss and gradients; grads[k] should give the      #
         # gradients for self.params[k].                                            #
         ############################################################################
-        pass
+
+        # (1)
+        h_init, cache_h_init = affine_forward(features, W_proj, b_proj)
+
+        # (2)
+        out_embed, cache_embed = word_embedding_forward(captions_in, W_embed)
+
+        # (3)
+        if self.cell_type == 'rnn':
+            h, cache_h = rnn_forward(out_embed, h_init, Wx, Wh, b)
+        elif self.cell_type == 'lstm':
+            h, cache_h = lstm_forward(out_embed, h_init, Wx, Wh, b)
+        else:
+            raise NotImplementedError
+
+        # (4)
+        scores, cache_scores = temporal_affine_forward(h, W_vocab, b_vocab)
+
+        # (5)
+        loss, dscores = temporal_softmax_loss(scores, captions_out, mask)
+
+        # Back-propagation
+        dh, grads['W_vocab'], grads['b_vocab'] = temporal_affine_backward(dscores, cache_scores)
+
+        if self.cell_type == 'rnn':
+            dout_embed, dh_init, grads['Wx'], grads['Wh'], grads['b'] = rnn_backward(dh, cache_h)
+        elif self.cell_type == 'lstm':
+            dout_embed, dh_init, grads['Wx'], grads['Wh']. grads['b'] = lstm_backward(dh, cache_h)
+        else:
+            raise NotImplementedError
+
+        grads['W_embed'] = word_embedding_backward(dout_embed, cache_embed)
+        dfeatures, grads['W_proj'], grads['b_proj'] = affine_backward(dh_init, cache_h_init)
+
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################
@@ -195,8 +228,29 @@ class CaptioningRNN(object):
         # functions; you'll need to call rnn_step_forward or lstm_step_forward in #
         # a loop.                                                                 #
         ###########################################################################
-        pass
+
+        h, _ = affine_forward(features, W_proj, b_proj)
+        c = np.zeros_like(h)
+
+        words = self._start * np.ones((N, 1), dtype=np.int32)
+
+        for t in range(max_length):
+            words_vec, _ = word_embedding_forward(words, W_embed)
+            words_vec = words_vec[:, 0, :]
+
+            if self.cell_type == 'rnn':
+                h, c = rnn_step_forward(words_vec, h, Wx, Wh, b)
+            elif self.cell_type == 'rnn':
+                h, c = lstm_step_forward(words_vec, h, Wx, Wh, b)
+            else:
+                raise NotImplementedError
+
+            scores, _ = affine_forward(h, W_vocab, b_vocab)
+
+            captions[:, t] = words[:, 0] = np.argmax(scores, axis=1)
+
         ############################################################################
         #                             END OF YOUR CODE                             #
         ############################################################################
+
         return captions
