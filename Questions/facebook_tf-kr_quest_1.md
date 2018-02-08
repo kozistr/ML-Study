@@ -107,32 +107,71 @@ A. 단어들을 학습이 가능한 특정한 벡터로 embedding 하는 과정.
 6. Auto Encoder 에 대해서 아는대로 얘기하라
 
 + MNIST AE를 TF나 Keras 등으로 만든다면 몇줄일까?
+
+A. Keras 기준으로 DataSet load 1줄, CNN 으로 AE 1~20줄, loss,opt,fit ~10줄. 아마 40줄 내외일 거 같다.
+
 + MNIST 에 대해서 임베딩 차원을 1로 해도 학습이 될까?
+
+A.
+
 + 임베딩 차원을 늘렸을 때의 장단점은?
-+ AE 학습시 항상 Loss를 0으로 만들수 있을까?
+
+A.
+
++ AE 학습시 항상 Loss 를 0으로 만들수 있을까?
+
+A.
+
 + VAE 는 무엇인가?
 
-A. Various Auto Encoder 로 
+A. Various Auto Encoder 로,
 
 7. Training 세트와 Test 세트를 분리하는 이유는?
 
 + Validation 세트가 따로 있는 이유는?
+
+A. training set 의 over-fitting 을 확인하려고.
+
 + Test 세트가 오염되었다는 말의 뜻은?
-+ Regularization이란 무엇인가?
 
-8. Batch Normalization의 효과는?
+A. 알기로는 Test Set 를 training set 으로 사용하였다는 뜻.
 
-+ Dropout의 효과는?
++ Regularization 이란 무엇인가?
+
+A. Weight Regularization 이라해서, 예를 들어 선형 함수에서 W 나 5W 나 결과에 차이가 없어 버리게 되니,
+ 이를 weight 정규화를 해 주는 것이다.
+
+8. Batch Normalization 의 효과는?
+
+A. neural net 들의 결과 값을 잘 zero-centered 하게 모아준다. 값이 튀?는거 방지.
+
++ Dropout 의 효과는?
+
+A. over-fitting 방지.
+
 + BN 적용해서 학습 이후 실제 사용시에 주의할 점은? 코드로는?
-+ GAN에서 Generator 쪽에도 BN을 적용해도 될까?
 
-9. SGD, RMSprop, Adam에 대해서 아는대로 설명한다면?
+A. train 시와 test 시 역할이 다르다.
 
-+ SGD에서 Stochastic의 의미는?
++ GAN 에서 Generator 쪽에도 BN을 적용해도 될까?
+
+A. 직접 해 봤었던 결과 대체적으로는 적용 안하는 편이 좋은거 같다. 적용 가능은 하나...
+
+9. SGD, RMSprop, Adam 에 대해서 아는대로 설명한다면?
+
+A, SGD (Stochastic Gradient Descent) 는 확률적 경사 하강법, 
+
++ SGD 에서 Stochastic 의 의미는?
+
+A. 
+
 + 미니배치를 작게 할때의 장단점은?
+
+A. 장점으로는 loss sensitive 해 진다. 단점으로는 local minimum 에 빠질 가능성이 높아진다.
+
 + 모멘텀의 수식을 적어 본다면?
 
-10. 간단한 MNIST 분류기를 MLP+CPU 버전으로 numpy로 만든다면 몇줄일까?
+10. 간단한 MNIST 분류기를 MLP+CPU 버전으로 numpy 로 만든다면 몇줄일까?
 
 + 어느 정도 돌아가는 녀석을 작성하기까지 몇시간 정도 걸릴까?
 + Back Propagation은 몇줄인가?
