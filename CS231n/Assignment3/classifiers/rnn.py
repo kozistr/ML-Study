@@ -161,7 +161,7 @@ class CaptioningRNN(object):
         if self.cell_type == 'rnn':
             dout_embed, dh_init, grads['Wx'], grads['Wh'], grads['b'] = rnn_backward(dh, cache_h)
         elif self.cell_type == 'lstm':
-            dout_embed, dh_init, grads['Wx'], grads['Wh']. grads['b'] = lstm_backward(dh, cache_h)
+            dout_embed, dh_init, grads['Wx'], grads['Wh'], grads['b'] = lstm_backward(dh, cache_h)
         else:
             raise NotImplementedError
 
@@ -240,7 +240,7 @@ class CaptioningRNN(object):
 
             if self.cell_type == 'rnn':
                 h, c = rnn_step_forward(words_vec, h, Wx, Wh, b)
-            elif self.cell_type == 'rnn':
+            elif self.cell_type == 'lstm':
                 h, c, _ = lstm_step_forward(words_vec, h, c, Wx, Wh, b)
             else:
                 raise NotImplementedError
