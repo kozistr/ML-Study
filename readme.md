@@ -1,6 +1,6 @@
 ## Machine Learning Studies
 
-1. Stanford CS231n Winter 2016 : Convolutional Neural Networks for Visual Recognition
+1. ~~Stanford CS231n Winter 2016 : Convolutional Neural Networks for Visual Recognition~~ - **Done**
 
 2. Stanford CS20 2018 : Tensorflow for Deep Learning Research
 
@@ -24,7 +24,7 @@
 
 12. Find about Real-Time Image Captioning for embedded devices
 
-13. Kaggle : Plant Seedlings Classification
+13. ~~Kaggle : Plant Seedlings Classification~~ - **Done**
 
 14. Write a kernel, Kaggle : Plant Seedlings Classification
 
