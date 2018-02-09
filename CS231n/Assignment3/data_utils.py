@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-from builtins import range
 import pickle
 import numpy as np
 import os
@@ -14,11 +13,13 @@ def load_pickle(f):
         return pickle.load(f)
     elif version[0] == '3':
         return pickle.load(f, encoding='latin1')
+
     raise ValueError("invalid python version: {}".format(version))
 
 
 def load_CIFAR_batch(filename):
     """ load single batch of cifar """
+
     with open(filename, 'rb') as f:
         datadict = load_pickle(f)
         X = datadict['data']
@@ -31,6 +32,7 @@ def load_CIFAR_batch(filename):
 
 def load_CIFAR10(ROOT):
     """ load all of cifar """
+
     xs = []
     ys = []
     for b in range(1, 6):
@@ -38,10 +40,12 @@ def load_CIFAR10(ROOT):
         X, Y = load_CIFAR_batch(f)
         xs.append(X)
         ys.append(Y)
+
     Xtr = np.concatenate(xs)
     Ytr = np.concatenate(ys)
     del X, Y
     Xte, Yte = load_CIFAR_batch(os.path.join(ROOT, 'test_batch'))
+
     return Xtr, Ytr, Xte, Yte
 
 
@@ -52,8 +56,9 @@ def get_CIFAR10_data(num_training=49000, num_validation=1000, num_test=1000,
     it for classifiers. These are the same steps as we used for the SVM, but
     condensed to a single function.
     """
+
     # Load the raw CIFAR-10 data
-    cifar10_dir = 'cs231n/datasets/cifar-10-batches-py'
+    cifar10_dir = 'D:/DataSet/Cifar/cifar-10-batches-py'
     X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
 
     # Subsample the data
@@ -110,6 +115,7 @@ def load_tiny_imagenet(path, dtype=np.float32, subtract_mean=True):
       (such as in student code) then y_test will be None.
     - mean_image: (3, 64, 64) array giving mean training image
     """
+
     # First load wnids
     with open(os.path.join(path, 'wnids.txt'), 'r') as f:
         wnids = [x.strip() for x in f]
@@ -129,8 +135,7 @@ def load_tiny_imagenet(path, dtype=np.float32, subtract_mean=True):
     y_train = []
     for i, wnid in enumerate(wnids):
         if (i + 1) % 20 == 0:
-            print('loading training data for synset %d / %d'
-                  % (i + 1, len(wnids)))
+            print('loading training data for synset %d / %d' % (i + 1, len(wnids)))
         # To figure out the filenames we need to open the boxes file
         boxes_file = os.path.join(path, 'train', wnid, '%s_boxes.txt' % wnid)
         with open(boxes_file, 'r') as f:
@@ -170,7 +175,7 @@ def load_tiny_imagenet(path, dtype=np.float32, subtract_mean=True):
             img = imread(img_file)
             if img.ndim == 2:
                 img.shape = (64, 64, 1)
-            X_val[i] = img.transpose(2, 0, 1)
+            X_val[i] = img.transpose((2, 0, 1))
 
     # Next load test images
     # Students won't have test labels, so we need to iterate over files in the
@@ -227,6 +232,7 @@ def load_models(models_dir):
     Returns:
     A dictionary mapping model file names to models.
     """
+
     models = {}
     for model_file in os.listdir(models_dir):
         with open(os.path.join(models_dir, model_file), 'rb') as f:
@@ -248,6 +254,7 @@ def load_imagenet_val(num=None):
     - y: numpy array of integer image labels, shape [num]
     - class_names: dict mapping integer label to class name
     """
+
     imagenet_fn = 'D:/Dataset/ImageNet/Imagenet25_val/imagenet_val_25.npz'
     if not os.path.isfile(imagenet_fn):
         print('file %s not found' % imagenet_fn)
