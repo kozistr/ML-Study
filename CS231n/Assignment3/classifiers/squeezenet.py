@@ -75,7 +75,7 @@ class SqueezeNet(object):
                 layers.append(x)
         return layers
 
-    def __init__(self, save_path=None, sess=None):
+    def __init__(self, save_path=True, sess=None):
         """Create a SqueezeNet model.
         Inputs:
         - save_path: path to TensorFlow checkpoint
@@ -107,9 +107,10 @@ class SqueezeNet(object):
                 self.layers.append(x)
         self.classifier = tf.reshape(x, [-1, NUM_CLASSES])
 
-        if save_path is not None:
+        if save_path:
             saver = tf.train.Saver()
-            saver.restore(sess, save_path)
+            saver.restore(sess=sess,
+                          save_path="C:\\Users\zero\Desktop\ML-Study\CS213n\Assignment3\squeezenet_tf")
 
         self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf.one_hot(self.labels, NUM_CLASSES),
                                                                            logits=self.classifier))
