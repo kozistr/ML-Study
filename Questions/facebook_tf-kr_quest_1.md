@@ -14,21 +14,22 @@ positive 하거나 negative 해진다 (극단적으로).
 
 + Non-Linearity 라는 말의 의미와 그 필요성은?
 
-말대로 함수가 비선형이라는 뜻과 당연하게 비선형성의 Activation Function 이 사용되어야 한다.
+A. 말대로 함수가 비선형이라는 뜻과 당연하게 비선형성의 Activation Function 이 사용되어야 한다.
 이유는 다양하고 깊게 neural network 를 만드려고.
 
 + ReLU로 어떻게 곡선 함수를 근사하나?
 
-곡선을 구간 미분해 그 부분을 연결하면 선형이듯(?) 곡선 함수에 부분 적으로 선형 함수인 ReLU 를 근사한다.
+A. 곡선을 구간 미분해 그 부분을 연결하면 선형이듯(?) 곡선 함수에 부분 적으로 선형 함수인 ReLU 를 근사한다.
 
 + ReLU의 문제점은?
 
+A. 
 1. 여전히 zero-centered 가 아니다.
 2. x < 0 에서의 gradient 는 다 0이 되 버린다.
 
 + Bias는 왜 있는걸까?
 
-예를 들면, 단순한 선형 함수만으로는 W 와 5 * W 를 구별 할 수가 없기 때문이다.
+A. 예를 들면, 단순한 선형 함수만으로는 W 와 5 * W 를 구별 할 수가 없기 때문이다.
 
 2. Gradient Descent 에 대해서 쉽게 설명한다면?
 
@@ -100,9 +101,20 @@ A. 입력받은 각 sequence data 를 2d vectorize 한 다음에 CNN 을 적용�
 A. 단어들을 학습이 가능한 특정한 벡터로 embedding 하는 과정. 
 
 + 그 그림에서 왼쪽 파라메터들을 임베딩으로 쓰는 이유는?
+
+A. 
+
 + 그 그림에서 오른쪽 파라메터들의 의미는 무엇일까?
+
+A. 
+
 + 남자와 여자가 가까울까? 남자와 자동차가 가까울까?
+
+A. 남자와 여자가 가깝다고 생각한다.
+
 + 번역을 Unsupervised 로 할 수 있을까?
+
+A. 가능하다!
 
 6. Auto Encoder 에 대해서 아는대로 얘기하라
 
@@ -177,7 +189,7 @@ A. v = mu * v + - learning_rate * dx; x += v
 
 10. 간단한 MNIST 분류기를 MLP+CPU 버전으로 numpy 로 만든다면 몇줄일까?
 
-A. affine_forward/backward 구현 ~10 줄, softmax 구현 ~20줄, relu forward/backward (~10줄)
+A. affine_forward/backward 구현 ~15 줄, softmax train/test 구현 ~40줄, relu forward/backward (~10줄)
 등등 2~300줄?
 
 + 어느 정도 돌아가는 녀석을 작성하기까지 몇시간 정도 걸릴까?
@@ -186,11 +198,11 @@ A. 1~2시간?
 
 + Back Propagation 은 몇줄인가?
 
-A.
+A. ~100 줄 내로 나올거 같다.
 
 + CNN 으로 바꾼다면 얼마나 추가될까?
 
-A. conv forward/backward 등등 를 더 추가해야하니 짧게는 ~50줄이면 충분할 거 같다
+A. conv forward/backward 등등 를 더 추가해야하니 짧게는 ~60줄이면 충분할 거 같다
 
 11. 간단한 MNIST 분류기를 TF나 Keras 등으로 작성하는데 몇시간이 필요한가?
 
@@ -211,7 +223,7 @@ A. 마지막 softmax 하기 전 dense layer 를 logits 으로 뽑고 따로 MSE 
 
 + 만약 한글 (인쇄물) OCR 을 만든다면 데이터 수집은 어떻게 할 수 있을까?
 
-A. 한글 한 글자에 대한 hand-write 를 수만~십만장 crop ?
+A. 한글 한 글자에 대한 hand-write image 를 수만~십만장 crop ?
 
 12. 간단한 MNIST DCGAN 을 작성한다면 TF 등으로 몇줄 정도 될까?
 
@@ -259,5 +271,6 @@ A. 처음 들어보는 개념이다 ㅠㅠ
 16. AutoML이 뭐하는 걸까?
 
 A. 자동으로 Hyper Parameter 를 optimizing 해주는 것? 잘 모르겠다...
+
 
 이상 공통 (기본) 질문들만 정리해 봤다.
