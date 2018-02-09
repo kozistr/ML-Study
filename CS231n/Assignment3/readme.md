@@ -2,7 +2,7 @@
 * Q1 : Image Captioning with Vanilla RNNs - **Done**
 * Q2 : Image Captioning with LSTMs - **Done**
 * Q3 : Network Visualization: Saliency maps, Class Visualization, and Fooling Images - **Done**
-* Q4 : Style Transfer - **not yet**
+* Q4 : Style Transfer - **Done**
 * Q5 : Generative Adversarial Networks - **not yet**
 
 ## Reference
