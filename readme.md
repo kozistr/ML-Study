@@ -14,18 +14,16 @@
 
 7. Read http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html
 
-8. Read http://efavdb.com/gaussian-processes/
+8. Read https://www.zabaras.com/statisticalcomputing
 
-9. Read https://www.zabaras.com/statisticalcomputing
+9. Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/
 
-10. Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/
+10. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices
 
-11. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices
+11. Find about Real-Time Image Captioning for embedded devices
 
-12. Find about Real-Time Image Captioning for embedded devices
+12. ~~Kaggle : Plant Seedlings Classification~~ - **Done**
 
-13. ~~Kaggle : Plant Seedlings Classification~~ - **Done**
+13. Write a kernel, Kaggle : Plant Seedlings Classification
 
-14. Write a kernel, Kaggle : Plant Seedlings Classification
-
-15.
+14.
