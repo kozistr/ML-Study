@@ -26,4 +26,6 @@
 
 13. Write a kernel, Kaggle : Plant Seedlings Classification
 
-14.
+14. Find about WaveNet
+
+15. 
