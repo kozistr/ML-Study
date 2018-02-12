@@ -16,9 +16,9 @@
 
 8. Read https://www.zabaras.com/statisticalcomputing
 
-9. Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/
+9. ~~Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/~~ - **Done, continue**
 
-10. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices
+10. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices - **Pending**
 
 11. Find about Real-Time Image Captioning for embedded devices
 
