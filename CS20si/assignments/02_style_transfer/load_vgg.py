@@ -29,8 +29,8 @@ class VGG(object):
         self.mean_pixels = np.array([123.68, 116.779, 103.939]).reshape((1, 1, 1, 3))
 
     def _weights(self, layer_idx, expected_layer_name):
-        """ Return the weights and biases at layer_idx already trained by VGG
-        """
+        """ Return the weights and biases at layer_idx already trained by VGG """
+
         W = self.vgg_layers[0][layer_idx][0][0][2][0][0]
         b = self.vgg_layers[0][layer_idx][0][0][2][0][1]
         layer_name = self.vgg_layers[0][layer_idx][0][0][0][0]
