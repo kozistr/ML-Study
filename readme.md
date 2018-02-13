@@ -2,7 +2,7 @@
 
 1. ~~Stanford CS231n Winter 2016 : Convolutional Neural Networks for Visual Recognition~~ - **Done**
 
-2. Stanford CS20 2018 : Tensorflow for Deep Learning Research
+2. Stanford CS20 2018 : Tensorflow for Deep Learning Research - **Continue**
 
 3. Stanford CS229 2017 : Machine Learning 
 
@@ -16,7 +16,7 @@
 
 8. Read https://www.zabaras.com/statisticalcomputing
 
-9. ~~Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/~~ - **Done, continue**
+9. ~~Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/~~ - **Done, Continue**
 
 10. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices - **Pending**
 
@@ -26,6 +26,6 @@
 
 13. Write a kernel, Kaggle : Plant Seedlings Classification
 
-14. Find about WaveNet
+14. Find about WaveNet, sound classification(?), generation
 
 15. 
