@@ -6,9 +6,8 @@ CS20: "TensorFlow for Deep Learning Research"
 cs20.stanford.edu
 Lecture 03
 """
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
+import os
 import numpy as np
 import tensorflow as tf
 import time
@@ -39,8 +38,8 @@ iterator = tf.data.Iterator.from_structure(train_data.output_types,
                                            train_data.output_shapes)
 img, label = iterator.get_next()
 
-train_init = iterator.make_initializer(train_data)	# initializer for train_data
-test_init = iterator.make_initializer(test_data)	# initializer for train_data
+train_init = iterator.make_initializer(train_data)  # initializer for train_data
+test_init = iterator.make_initializer(test_data)    # initializer for test_data
 
 # Step 3: create weights and bias
 # w is initialized to random variables with mean of 0, stddev of 0.01
@@ -77,7 +76,7 @@ with tf.Session() as sess:
 
     # train the model n_epochs times
     for i in range(n_epochs): 	
-        sess.run(train_init)	# drawing samples from train_data
+        sess.run(train_init)  # drawing samples from train_data
         total_loss = 0
         n_batches = 0
         try:
@@ -91,7 +90,7 @@ with tf.Session() as sess:
     print('Total time: {0} seconds'.format(time.time() - start_time))
 
     # test the model
-    sess.run(test_init)			# drawing samples from test_data
+    sess.run(test_init)  # drawing samples from test_data
     total_correct_preds = 0
     try:
         while True:

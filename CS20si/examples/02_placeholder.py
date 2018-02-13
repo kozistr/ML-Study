@@ -4,14 +4,13 @@ CS20: "TensorFlow for Deep Learning Research"
 cs20.stanford.edu
 Lecture 02
 """
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
+import os
 import tensorflow as tf
 
 # Example 1: feed_dict with placeholder
 
-# a is a placeholderfor a vector of 3 elements, type tf.float32
+# a is a placeholder for a vector of 3 elements, type tf.float32
 a = tf.placeholder(tf.float32, shape=[3])
 b = tf.constant([5, 5, 5], tf.float32)
 
@@ -21,9 +20,8 @@ c = a + b  # short for tf.add(a, b)
 writer = tf.summary.FileWriter('graphs/placeholders', tf.get_default_graph())
 with tf.Session() as sess:
     # compute the value of c given the value of a is [1, 2, 3]
-    print(sess.run(c, {a: [1, 2, 3]}))                 # [6. 7. 8.]
+    print(sess.run(c, {a: [1, 2, 3]}))             # [6. 7. 8.]
 writer.close()
-
 
 # Example 2: feed_dict with variables
 a = tf.add(2, 5)

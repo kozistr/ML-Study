@@ -4,8 +4,8 @@ CS20: "TensorFlow for Deep Learning Research"
 cs20.stanford.edu
 Lecture 03
 """
+
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import time
 
 import numpy as np
@@ -68,24 +68,24 @@ with tf.Session() as sess:
         for x, y in data:
             # Execute train_op and get the value of loss.
             # Don't forget to feed in data for placeholders
-            _, loss = ########## TO DO ############
+            _, loss =  ########## TO DO ############
             total_loss += loss
 
-        print('Epoch {0}: {1}'.format(i, total_loss/n_samples))
+        print('Epoch {0}: {1}'.format(i, total_loss / n_samples))
 
     # close the writer when you're done using it
     #############################
     ########## TO DO ############
     #############################
     writer.close()
-    
+
     # Step 9: output the values of w and b
     w_out, b_out = None, None
     #############################
     ########## TO DO ############
     #############################
 
-print('Took: %f seconds' %(time.time() - start))
+print('Took: %f seconds' % (time.time() - start))
 
 # uncomment the following lines to see the plot 
 # plt.plot(data[:,0], data[:,1], 'bo', label='Real data')

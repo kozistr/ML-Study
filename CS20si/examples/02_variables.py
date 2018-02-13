@@ -4,9 +4,8 @@ CS20: "TensorFlow for Deep Learning Research"
 cs20.stanford.edu
 Lecture 02
 """
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
+import os
 import numpy as np
 import tensorflow as tf
 

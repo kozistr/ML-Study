@@ -3,11 +3,11 @@ Created by Chip Huyen (chiphuyen@cs.stanford.edu)
 CS20: "TensorFlow for Deep Learning Research"
 cs20.stanford.edu
 """
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
+import os
 import numpy as np
 import tensorflow as tf
+
 
 # Example 1: Simple ways to create log file writer
 a = tf.constant(2, name='a')
@@ -17,7 +17,7 @@ writer = tf.summary.FileWriter('./graphs/simple', tf.get_default_graph())
 with tf.Session() as sess:
     # writer = tf.summary.FileWriter('./graphs', sess.graph) 
     print(sess.run(x))
-writer.close() # close the writer when you’re done using it
+writer.close()  # close the writer when you’re done using it
 
 # Example 2: The wonderful wizard of div
 a = tf.constant([2, 2], name='a')

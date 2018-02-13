@@ -14,10 +14,11 @@ cs20.stanford.edu
 Chip Huyen (chiphuyen@cs.stanford.edu)
 Lecture 07
 """
+
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 import sys
+
 sys.path.append('..')
 
 from matplotlib import gridspec as gridspec
@@ -26,20 +27,22 @@ import tensorflow as tf
 
 import kernels
 
+
 def read_one_image(filename):
-    ''' This method is to show how to read image from a file into a tensor.
+    """ This method is to show how to read image from a file into a tensor.
     The output is a tensor object.
-    '''
+    """
     image_string = tf.read_file(filename)
     image_decoded = tf.image.decode_image(image_string)
     image = tf.cast(image_decoded, tf.float32) / 256.0
     return image
 
+
 def convolve(image, kernels, rgb=True, strides=[1, 3, 3, 1], padding='SAME'):
     images = [image[0]]
     for i, kernel in enumerate(kernels):
-        filtered_image = tf.nn.conv2d(image, 
-                                      kernel, 
+        filtered_image = tf.nn.conv2d(image,
+                                      kernel,
                                       strides=strides,
                                       padding=padding)[0]
         if i == 2:
@@ -47,23 +50,25 @@ def convolve(image, kernels, rgb=True, strides=[1, 3, 3, 1], padding='SAME'):
         images.append(filtered_image)
     return images
 
+
 def show_images(images, rgb=True):
     gs = gridspec.GridSpec(1, len(images))
     for i, image in enumerate(images):
         plt.subplot(gs[0, i])
         if rgb:
             plt.imshow(image)
-        else: 
+        else:
             image = image.reshape(image.shape[0], image.shape[1])
             plt.imshow(image, cmap='gray')
         plt.axis('off')
     plt.show()
 
+
 def main():
     rgb = False
     if rgb:
-        kernels_list = [kernels.BLUR_FILTER_RGB, 
-                        kernels.SHARPEN_FILTER_RGB, 
+        kernels_list = [kernels.BLUR_FILTER_RGB,
+                        kernels.SHARPEN_FILTER_RGB,
                         kernels.EDGE_FILTER_RGB,
                         kernels.TOP_SOBEL_RGB,
                         kernels.EMBOSS_FILTER_RGB]
@@ -78,11 +83,12 @@ def main():
     image = read_one_image('data/friday.jpg')
     if not rgb:
         image = tf.image.rgb_to_grayscale(image)
-    image = tf.expand_dims(image, 0) # make it into a batch of 1 element
+    image = tf.expand_dims(image, 0)  # make it into a batch of 1 element
     images = convolve(image, kernels_list, rgb)
     with tf.Session() as sess:
-        images = sess.run(images) # convert images from tensors to float values
+        images = sess.run(images)  # convert images from tensors to float values
     show_images(images, rgb)
+
 
 if __name__ == '__main__':
     main()

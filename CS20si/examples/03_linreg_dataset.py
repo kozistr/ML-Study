@@ -4,8 +4,8 @@ CS20: "TensorFlow for Deep Learning Research"
 cs20.stanford.edu
 Lecture 03
 """
+
 import os
-os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import time
 
 import numpy as np
@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 import utils
+
 
 DATA_FILE = 'data/birth_life_2010.txt'
 
@@ -67,8 +68,8 @@ with tf.Session() as sess:
 print('Took: %f seconds' %(time.time() - start))
 
 # plot the results
-plt.plot(data[:,0], data[:,1], 'bo', label='Real data')
-plt.plot(data[:,0], data[:,0] * w_out + b_out, 'r', label='Predicted data with squared error')
+plt.plot(data[:, 0], data[:, 1], 'bo', label='Real data')
+plt.plot(data[:, 0], data[:, 0] * w_out + b_out, 'r', label='Predicted data with squared error')
 # plt.plot(data[:,0], data[:,0] * (-5.883589) + 85.124306, 'g', label='Predicted data with Huber loss')
 plt.legend()
 plt.show()
