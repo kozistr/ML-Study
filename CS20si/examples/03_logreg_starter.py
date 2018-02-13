@@ -32,11 +32,10 @@ train_data = train_data.shuffle(10000)  # if you want to shuffle your data
 train_data = train_data.batch(batch_size)
 
 # create testing Dataset and batch it
-test_data = None
+test_data = tf.data.Dataset.from_sparse_tensor_slices(test).batch(batch_size)
 #############################
 #          TO DO            #
 #############################
-
 
 # create one iterator and initialize it with different datasets
 iterator = tf.data.Iterator.from_structure(train_data.output_types,
@@ -51,7 +50,8 @@ test_init = iterator.make_initializer(test_data)  # initializer for train_data
 # b is initialized to 0
 # shape of w depends on the dimension of X and Y so that Y = tf.matmul(X, w)
 # shape of b depends on Y
-w, b = None, None
+w, b = tf.get_variable('weight', shape=(784, 10), initializer=tf.random_normal_initializer()), \
+       tf.get_variable('bias', shape=(1, 10), initializer=tf.zeros_initializer())
 #############################
 #          TO DO            #
 #############################
@@ -60,7 +60,7 @@ w, b = None, None
 # Step 4: build model
 # the model that returns the logits.
 # this logits will be later passed through softmax layer
-logits = None
+logits = tf.matmul(img, w) + b
 #############################
 #          TO DO            #
 #############################
@@ -68,7 +68,7 @@ logits = None
 
 # Step 5: define loss function
 # use cross entropy of softmax of logits as the loss function
-loss = None
+loss = tf.nn.softmax_cross_entropy_with_logits(logits=logits, labels=label)
 #############################
 #          TO DO            #
 #############################
@@ -76,7 +76,7 @@ loss = None
 
 # Step 6: define optimizer
 # using Adamn Optimizer with pre-defined learning rate to minimize loss
-optimizer = None
+optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
 #############################
 #          TO DO            #
 #############################
