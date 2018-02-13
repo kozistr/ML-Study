@@ -21,6 +21,8 @@ DATA_FILE = 'data/birth_life_2010.txt'
 #          TO DO            #
 #############################
 
+tfe.enable_eager_execution()
+
 # Read the data into a dataset.
 data, n_samples = utils.read_birth_life_data(DATA_FILE)
 dataset = tf.data.Dataset.from_tensor_slices((data[:, 0], data[:, 1]))
@@ -30,8 +32,8 @@ dataset = tf.data.Dataset.from_tensor_slices((data[:, 0], data[:, 1]))
 #          TO DO            #
 #############################
 
-w = None
-b = None
+w = tf.constant(0.)
+b = tf.constant(0.)
 
 
 # Define the linear predictor.
@@ -40,7 +42,7 @@ def prediction(x):
     #          TO DO            #
     #############################
 
-    pass
+    return x * w + b
 
 
 # Define loss functions of the form: L(y, y_predicted)
@@ -48,7 +50,8 @@ def squared_loss(y, y_predicted):
     #############################
     #          TO DO            #
     #############################
-    pass
+
+    return (y - y_predicted) ** 2
 
 
 def huber_loss(y, y_predicted):
@@ -58,7 +61,10 @@ def huber_loss(y, y_predicted):
     #          TO DO            #
     #############################
 
-    pass
+    m = 1.
+    t = y - y_predicted
+
+    return t ** 2 if tf.abs(t) <= m else m * (2 * tf.abs(t) - m)
 
 
 def train(loss_fn):
@@ -71,14 +77,15 @@ def train(loss_fn):
     #############################
     #          TO DO            #
     #############################
-    def loss_for_example(x, y):
-        pass
+
+    def loss_for_example(x, y): return loss_fn(y, prediction(x))
 
     # Obtain a gradients function using `tfe.implicit_value_and_gradients`.
     #############################
     #          TO DO            #
     #############################
-    grad_fn = None
+
+    grad_fn = tfe.implict_value_and_gradients(loss_for_example)
 
     start = time.time()
     for epoch in range(100):
@@ -88,6 +95,8 @@ def train(loss_fn):
             #############################
             #          TO DO            #
             #############################
+
+            loss, gradients = grad_fn(x_i, y_i)
 
             optimizer.apply_gradients(gradients)
             total_loss += loss
@@ -106,7 +115,6 @@ plt.plot(data[:, 0], data[:, 1], 'bo')
 # In future versions of eager, you won't need to call `.numpy()` and will
 # instead be able to, in most cases, pass Tensors wherever NumPy arrays are
 # expected.
-plt.plot(data[:, 0], data[:, 0] * w.numpy() + b.numpy(), 'r',
-         label="huber regression")
+plt.plot(data[:, 0], data[:, 0] * w.numpy() + b.numpy(), 'r', label="huber regression")
 plt.legend()
 plt.show()
