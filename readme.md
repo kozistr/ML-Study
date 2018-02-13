@@ -8,13 +8,13 @@
 
 4. Oxford CS deepnlp 2017 : https://github.com/oxford-cs-deepnlp-2017/lectures
 
-5. Read https://ratsgo.github.io/blog/categories/
+5. NOTRE DAME Statistical Computing 2017 : https://www.zabaras.com/statisticalcomputing
 
 6. Read http://efavdb.com/gaussian-processes/
 
 7. Read http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html
 
-8. Read https://www.zabaras.com/statisticalcomputing
+8. Read https://ratsgo.github.io/blog/categories/
 
 9. ~~Implement Awesome-GANs : https://github.com/kozistr/Awesome-GANs/~~ - **Done, Continue**
 
