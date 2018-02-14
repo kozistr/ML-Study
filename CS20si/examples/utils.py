@@ -40,6 +40,7 @@ def read_birth_life_data(filename):
     data = list(zip(births, lifes))
     n_samples = len(data)
     data = np.asarray(data, dtype=np.float32)
+
     return data, n_samples
 
 
@@ -124,6 +125,7 @@ def read_mnist(path, flatten=True, num_train=55000):
     train_img, train_labels = imgs[train_idx, :], labels[train_idx, :]
     val_img, val_labels = imgs[val_idx, :], labels[val_idx, :]
     test = parse_data(path, 't10k', flatten)
+
     return (train_img, train_labels), (val_img, val_labels), test
 
 

@@ -19,6 +19,7 @@ def read_data(file_path):
     """
     with zipfile.ZipFile(file_path) as f:
         words = tf.compat.as_str(f.read(f.namelist()[0])).split()
+
     return words
 
 
@@ -41,6 +42,7 @@ def build_vocab(words, vocab_size, visual_fld):
 
     index_dictionary = dict(zip(dictionary.values(), dictionary.keys()))
     file.close()
+
     return dictionary, index_dictionary
 
 

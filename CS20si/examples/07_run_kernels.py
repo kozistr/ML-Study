@@ -35,10 +35,11 @@ def read_one_image(filename):
     image_string = tf.read_file(filename)
     image_decoded = tf.image.decode_image(image_string)
     image = tf.cast(image_decoded, tf.float32) / 256.0
+
     return image
 
 
-def convolve(image, kernels, rgb=True, strides=[1, 3, 3, 1], padding='SAME'):
+def convolve(image, kernels, rgb=True, strides=(1, 3, 3, 1), padding='SAME'):
     images = [image[0]]
     for i, kernel in enumerate(kernels):
         filtered_image = tf.nn.conv2d(image,
@@ -48,6 +49,7 @@ def convolve(image, kernels, rgb=True, strides=[1, 3, 3, 1], padding='SAME'):
         if i == 2:
             filtered_image = tf.minimum(tf.nn.relu(filtered_image), 255)
         images.append(filtered_image)
+
     return images
 
 
