@@ -21,7 +21,16 @@ def conv_relu(inputs, filters, k_size, stride, padding, scope_name):
     #############################
     #          TO DO            #
     #############################
-    return None
+
+    with tf.variable_scope(scope_name):
+        x = tf.layers.conv2d(inputs=inputs,
+                             filters=filters,
+                             kernel_size=k_size,
+                             strides=stride,
+                             padding=padding,
+                             activation='relu',
+                             name=scope_name)
+        return x
 
 
 def maxpool(inputs, ksize, stride, padding='VALID', scope_name='pool'):
@@ -29,7 +38,15 @@ def maxpool(inputs, ksize, stride, padding='VALID', scope_name='pool'):
     #############################
     #          TO DO            #
     #############################
-    return None
+
+    with tf.variable_scope(scope_name):
+        x = tf.layers.max_pooling2d(inputs=inputs,
+                                    pool_size=ksize,
+                                    strides=stride,
+                                    padding=padding,
+                                    name=scope_name)
+
+        return x
 
 
 def fully_connected(inputs, out_dim, scope_name='fc'):
@@ -39,10 +56,17 @@ def fully_connected(inputs, out_dim, scope_name='fc'):
     #############################
     #          TO DO            #
     #############################
-    return None
+
+    with tf.variable_scope(scope_name):
+        x = tf.layers.dense(inputs=inputs,
+                            units=out_dim,
+                            name=scope_name)
+
+        return x
 
 
 class ConvNet(object):
+
     def __init__(self):
         self.lr = 0.001
         self.batch_size = 128
@@ -52,6 +76,18 @@ class ConvNet(object):
         self.n_classes = 10
         self.skip_step = 20
         self.n_test = 10000
+
+        self.img = None
+        self.label = None
+
+        self.train_init = None
+        self.test_init = None
+
+        self.logits = None
+        self.opt = None
+        self.loss = None
+        self.summary_op = None
+        self.accuracy = None
 
     def get_data(self):
         with tf.name_scope('data'):
@@ -72,7 +108,21 @@ class ConvNet(object):
         #############################
         #          TO DO            #
         #############################
-        self.logits = None
+
+        # which models ???
+        x = tf.reshape(self.img, (-1, 28, 28, 1))
+
+        x = conv_relu(x, 32, 3, 1, 'SAME', 'conv_relu-1')
+        x = maxpool(x, 2, 2, 'SAME', 'maxpool-1')
+
+        x = conv_relu(x, 64, 3, 1, 'SAME', 'conv_relu-2')
+        x = maxpool(x, 2, 2, 'SAME', 'maxpool-2')
+
+        x = tf.layers.flatten(x)
+
+        x = fully_connected(x, self.n_classes, 'fc-1')
+
+        self.logits = x
 
     def loss(self):
         """
@@ -85,7 +135,8 @@ class ConvNet(object):
         #############################
         #          TO DO            #
         #############################
-        self.loss = None
+        self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=self.logits,
+                                                                           labels=self.label))
 
     def optimize(self):
         """
@@ -96,7 +147,7 @@ class ConvNet(object):
         #############################
         #          TO DO            #
         #############################
-        self.opt = None
+        self.opt = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss)
 
     def summary(self):
         """
@@ -106,7 +157,11 @@ class ConvNet(object):
         #############################
         #          TO DO            #
         #############################
-        self.summary_op = None
+
+        tf.summary.scalar("training_loss", self.loss)
+        tf.summary.scalar("test_accuracy", self.accuracy)
+
+        self.summary_op = tf.summary.merge_all()
 
     def eval(self):
         """
@@ -147,6 +202,7 @@ class ConvNet(object):
         saver.save(sess, 'checkpoints/convnet_starter/mnist-convnet', step)
         print('Average loss at epoch {0}: {1}'.format(epoch, total_loss / n_batches))
         print('Took: {0} seconds'.format(time.time() - start_time))
+
         return step
 
     def eval_once(self, sess, init, writer, epoch, step):
