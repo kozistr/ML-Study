@@ -139,6 +139,7 @@ class ConvNet(object):
         saver.save(sess, 'checkpoints/convnet_layers/mnist-convnet', step)
         print('Average loss at epoch {0}: {1}'.format(epoch, total_loss / n_batches))
         print('Took: {0} seconds'.format(time.time() - start_time))
+
         return step
 
     def eval_once(self, sess, init, writer, epoch, step):
