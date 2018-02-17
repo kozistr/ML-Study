@@ -28,4 +28,6 @@
 
 14. Find about WaveNet, sound classification(?), generation
 
-15. 
+15. https://github.com/jtoy/awesome-tensorflow
+
+16. 
