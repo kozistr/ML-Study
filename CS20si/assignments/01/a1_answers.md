@@ -8,7 +8,7 @@
 
 ## 3b. Visualize word embeddings and find interesting word relations
 
-
+Pass ~ :)
 
 ## 3c. word2vec
 
