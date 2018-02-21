@@ -15,6 +15,7 @@ import tensorflow as tf
 
 import utils
 
+
 # VGG-19 parameters file
 VGG_DOWNLOAD_LINK = 'http://www.vlfeat.org/matconvnet/models/imagenet-vgg-verydeep-19.mat'
 VGG_FILENAME = 'imagenet-vgg-verydeep-19.mat'
@@ -39,7 +40,7 @@ class VGG(object):
         return W, b.reshape(b.size)
 
     def conv2d_relu(self, prev_layer, layer_idx, layer_name):
-        """ Create a convolution layer with RELU using the weights and
+        """ Create a convolution layer with ReLU using the weights and
         biases extracted from the VGG model at 'layer_idx'. You should use
         the function _weights() defined above to extract weights and biases.
 
@@ -76,11 +77,12 @@ class VGG(object):
 
         Hint for choosing strides and kszie: choose what you feel appropriate
         """
+
         ###############################
         # TO DO                       #
         ###############################
 
-        out = None
+        out = tf.layers.average_pooling2d(prev_layer, pool_size=2, strides=2, padding='SAME', name=layer_name)
 
         ###############################
 

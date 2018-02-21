@@ -30,7 +30,7 @@ class StyleTransfer(object):
         """
         img_width and img_height are the dimensions we expect from the generated image.
         We will resize input content image and input style image to match this dimension.
-        Feel free to alter any hyperparameter here and see how it affects your training.
+        Feel free to alter any hyper-parameter here and see how it affects your training.
         """
 
         self.img_width = img_width
@@ -52,8 +52,10 @@ class StyleTransfer(object):
         self.style_w = None
         # style_layer_w: weights for different style layers. deep layers have more weights
         self.style_layer_w = [0.5, 1.0, 1.5, 3.0, 4.0] 
-        self.gstep = None # global step
-        self.lr = None
+        self.gstep = tf.Variable(0)  # global step
+        self.lr = 8e-4
+        self.alpha = 0.05
+        self.beta = 0.02
 
         ###############################
 
@@ -72,7 +74,7 @@ class StyleTransfer(object):
         with tf.variable_scope('input') as scope:
             self.input_img = tf.get_variable('in_img',
                                              shape=([1, self.img_height, self.img_width, 3]),
-                                             type=tf.float32,
+                                             dtype=tf.float32,
                                              initializer=tf.zeros_initializer())
 
     def load_vgg(self):
@@ -178,7 +180,7 @@ class StyleTransfer(object):
             # for the content loss and style loss    #
             ##########################################
 
-            self.total_loss = None
+            self.total_loss = self.alpha * self.content_loss + self.beta * self.style_loss
 
             ##########################################
 
@@ -187,7 +189,7 @@ class StyleTransfer(object):
         # TO DO: create optimizer     #
         ###############################
 
-        self.opt = None
+        self.opt = tf.train.AdamOptimizer(learning_rate=self.lr)
 
         ###############################
 
@@ -197,7 +199,7 @@ class StyleTransfer(object):
         # Hint: don't forget to merge them
         ###############################
 
-        self.summary_op = None
+        self.summary_op = tf.summary.merge_all()
 
         ###############################
 
@@ -252,7 +254,7 @@ class StyleTransfer(object):
                     print('   Took: {} seconds'.format(time.time() - start_time))
                     start_time = time.time()
 
-                    filename = 'outputs/%d.png' % (index)
+                    filename = 'outputs/%d.png' % index
                     utils.save_image(filename, gen_image)
 
                     if (index + 1) % 20 == 0:
