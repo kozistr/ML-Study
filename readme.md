@@ -4,7 +4,7 @@
 
 2. Stanford CS20 2018 : Tensorflow for Deep Learning Research - **Continue**
 
-3. Stanford CS229 2017 : Machine Learning 
+3. Stanford CS229 2017 : Machine Learning
 
 4. Oxford CS deepnlp 2017 : https://github.com/oxford-cs-deepnlp-2017/lectures
 
@@ -26,7 +26,7 @@
 
 13. Write a kernel, Kaggle : Plant Seedlings Classification
 
-14. Find about WaveNet, sound classification(?), generation
+14. ~~Find about WaveNet, sound classification(?), generation~~ - **Done, Continue**
 
 15. https://github.com/jtoy/awesome-tensorflow
 
