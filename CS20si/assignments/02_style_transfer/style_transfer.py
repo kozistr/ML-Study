@@ -53,7 +53,7 @@ class StyleTransfer(object):
         # style_layer_w: weights for different style layers. deep layers have more weights
         self.style_layer_w = [0.5, 1.0, 1.5, 3.0, 4.0] 
         self.gstep = tf.Variable(0, trainable=False, name='global_step')  # global step
-        self.lr = 8e-4
+        self.lr = 1.0
 
         ###############################
 
