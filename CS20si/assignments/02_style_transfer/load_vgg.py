@@ -60,7 +60,15 @@ class VGG(object):
         # TO DO                       #
         ###############################
 
-        out = None
+        with tf.variable_scope(layer_name) as scope:
+            W, b = self._weights(layer_idx, layer_name)
+
+            W = tf.constant(W, name='weights')
+            b = tf.constant(b, name='bias')
+
+            x = tf.nn.conv2d(prev_layer, filter=W, strides=[1, 1, 1, 1], padding='SAME')
+
+            out = tf.nn.relu(x + b)
 
         ###############################
 
