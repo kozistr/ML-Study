@@ -9,6 +9,7 @@ For more details, please read the assignment handout:
 https://docs.google.com/document/d/1FpueD-3mScnD0SJQDtwmOb1FrSwo1NGowkXzMwPoLH4/edit?usp=sharing
 """
 
+
 import os
 import time
 
@@ -17,6 +18,15 @@ import tensorflow as tf
 
 import load_vgg
 import utils
+
+
+content = 'deadpool'
+style = 'monet'
+
+image_width = 333
+image_height = 250
+
+train_epoch = 300
 
 
 def setup():
@@ -290,6 +300,18 @@ class StyleTransfer(object):
 if __name__ == '__main__':
     setup()
 
-    machine = StyleTransfer('./content/deadpool.jpg', './styles/guernica.jpg', 333, 250)
+    content_path, style_path = './content/', './styles/'
+
+    if content == 'deadpool':
+        content_path += content + '.jpg'
+    else:
+        raise NotImplementedError
+
+    if style == 'guernica' or style == 'vangogh' or style == 'monet':
+        style_path += style + '.jpg'
+    else:
+        raise NotImplementedError
+
+    machine = StyleTransfer(content_path, style_path, image_width, image_height)
     machine.build()
-    machine.train(300)
+    machine.train(train_epoch)
