@@ -24,7 +24,7 @@
 
 12. ~~Kaggle : Plant Seedlings Classification~~ - **Done**
 
-13. Write a kernel, Kaggle : Plant Seedlings Classification
+13. Write a kernel, Kaggle : Plant Seedlings Classification - **Continue**
 
 14. ~~Find about WaveNet, sound classification(?), generation~~ - **Done, Continue**
 
