@@ -142,7 +142,7 @@ class StyleTransfer(object):
         ###############################
 
         N = a.shape[3]
-        M = g.shape[1] * g.shape[2]
+        M = a.shape[1] * a.shape[2]
         A = self._gram_matrix(a, N, M)
         G = self._gram_matrix(g, N, M)
 
@@ -161,8 +161,9 @@ class StyleTransfer(object):
         ###############################
 
         n_layers = len(self.style_layers)
+        vgg_layers = [self.vgg.conv1_1, self.vgg.conv2_1, self.vgg.conv3_1, self.vgg.conv4_1, self.vgg.conv5_1]
 
-        E = [self._single_style_loss(A[i], self.vgg[self.style_layers[i]]) for i in range(n_layers)]
+        E = [self._single_style_loss(A[i], vgg_layers[i]) for i in range(n_layers)]
 
         self.style_loss = sum([self.style_layer_w[i] * E[i] for i in range(n_layers)])
 
