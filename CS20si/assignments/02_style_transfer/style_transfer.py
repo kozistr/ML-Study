@@ -244,7 +244,7 @@ class StyleTransfer(object):
 
             saver = tf.train.Saver()
 
-            ckpt = tf.train.get_checkpoint_state('./checkpoint/checkpoint')
+            ckpt = tf.train.get_checkpoint_state('./checkpoints/checkpoint')
             if ckpt and ckpt.model_checkpoint_path:
                 saver.restore(sess, ckpt.model_checkpoint_path)
 
@@ -283,7 +283,7 @@ class StyleTransfer(object):
                         # TO DO: save the variables into a checkpoint
                         ###############################
 
-                        saver.save(sess, './checkpoint/style_transfer', index)
+                        saver.save(sess, './checkpoints/style_transfer', index)
 
 
 if __name__ == '__main__':
