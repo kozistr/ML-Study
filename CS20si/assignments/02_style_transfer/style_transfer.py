@@ -52,7 +52,7 @@ class StyleTransfer(object):
         self.style_w = 0.02
         # style_layer_w: weights for different style layers. deep layers have more weights
         self.style_layer_w = [0.5, 1.0, 1.5, 3.0, 4.0] 
-        self.gstep = tf.Variable(0)  # global step
+        self.gstep = tf.Variable(0, trainable=False, name='global_step')  # global step
         self.lr = 8e-4
 
         ###############################
@@ -197,7 +197,7 @@ class StyleTransfer(object):
         # TO DO: create optimizer     #
         ###############################
 
-        self.opt = tf.train.AdamOptimizer(learning_rate=self.lr)
+        self.opt = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.total_loss, global_step=self.gstep)
 
         ###############################
 
@@ -275,7 +275,7 @@ class StyleTransfer(object):
                     print('   Took: {} seconds'.format(time.time() - start_time))
                     start_time = time.time()
 
-                    filename = 'outputs/%d.png' % index
+                    filename = './outputs/%d.png' % index
                     utils.save_image(filename, gen_image)
 
                     if (index + 1) % 20 == 0:
