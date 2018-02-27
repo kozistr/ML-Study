@@ -27,7 +27,7 @@ A.
 1. 여전히 zero-centered 가 아니다.
 2. x < 0 에서의 gradient 는 다 0이 되 버린다.
 
-+ Bias는 왜 있는걸까?
++ Bias 는 왜 있는걸까?
 
 A. 예를 들면, 단순한 선형 함수만으로는 W 와 5 * W 를 구별 할 수가 없기 때문이다.
 
@@ -53,7 +53,7 @@ A. GD 중 여러 굴곡을 만나는 데, 올라가는 굴곡을 만났을 때.
 
 + 중학생이 이해할 수 있게 더 쉽게 설명 한다면?
 
-A. 위에가 최선..?!
+A. 그래프 + 위에가 최선..?!
 
 + Back Propagation 에 대해서 쉽게 설명 한다면?
 
@@ -90,7 +90,8 @@ A. 흠.... 가능할거 같다.
 + 풀링시에 만약 Max 를 사용한다면 그 이유는?
 
 A. 음... pooling 자체는 sub sampling 을 통해 데이터 사이즈를 줄이고 (cost efficient), 각 영역들이 대푯값을 추출해서 feature 는 그래도 유지한다.
-그런데 avg pooling 대신 max pooling 을 사용하는 거의 차이라면 avg 보다 max pooling 이 더 cost efficient 해서?!...
+그런데 avg pooling 대신 max pooling 을 사용하는 거의 차이라면 avg 보다 max pooling 이 더 cost efficient 하고 해당 영역의 최댓값이 아닌 평균값을 
+계산해서 feature 를 더 잘 보존할 수 있다.
 
 + 시퀀스 데이터에 CNN 을 적용하는 것이 가능할까?
 
@@ -124,7 +125,7 @@ A. Keras 기준으로 DataSet load 1줄, CNN 으로 AE 1~20줄, loss,opt,fit ~10
 
 + MNIST 에 대해서 임베딩 차원을 1로 해도 학습이 될까?
 
-A.
+A. 가능하다!?
 
 + 임베딩 차원을 늘렸을 때의 장단점은?
 
