@@ -10,7 +10,7 @@
 
 5. NOTRE DAME Statistical Computing 2017 : https://www.zabaras.com/statisticalcomputing
 
-6. Read http://efavdb.com/gaussian-processes/
+6. ~~Read http://efavdb.com/gaussian-processes/~~ - **Done**
 
 7. Read http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html
 
@@ -20,11 +20,11 @@
 
 10. Implement Object Detection with Yolo v2 & Faster R-CNN for embedded devices - **Pending**
 
-11. Find about Real-Time Image Captioning for embedded devices
+11. ~~Find about Real-Time Image Captioning for embedded devices~~ - **Done**
 
 12. ~~Kaggle : Plant Seedlings Classification~~ - **Done**
 
-13. Write a kernel, Kaggle : Plant Seedlings Classification - **Continue**
+13. ~~Write a kernel, Kaggle : Plant Seedlings Classification~~ - **Done**
 
 14. ~~Find about WaveNet, sound classification(?), generation~~ - **Done, Continue**
 
