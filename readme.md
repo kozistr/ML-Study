@@ -12,7 +12,7 @@
 
 6. ~~Read http://efavdb.com/gaussian-processes/~~ - **Done**
 
-7. Read http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html
+7. ~~Check http://blog.dlib.net/2017/12/a-global-optimization-algorithm-worth.html~~ - **Done**
 
 8. Read https://ratsgo.github.io/blog/categories/
 
