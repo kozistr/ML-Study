@@ -100,10 +100,19 @@ A.
     2. TextCNN, WaveNet 같은 텍스트, 음성에 Conv1D 를 사용한 approach 들도 많다.
 
 5. Word2Vec의 원리는?
-
+A.
+    1. 각 단어를 유의미한 임베딩 vector 로 바꾼다.
+    2. CBOW, skip-gram 등의 method 가 있는데 각 method 에 따라 좀 다르다.
+    3. CBOW 는 각 단어의 빈도수를 기반으로 트레이닝
+    4. skip-gram 은 skip-gram size 만큼 끊어서 set 을 만들어 트레이닝
+    
 + 그 그림에서 왼쪽 파라메터들을 임베딩으로 쓰는 이유는?
-
+A.
+    1. 그림?
+    
 + 그 그림에서 오른쪽 파라메터들의 의미는 무엇일까?
+A.
+    1. 그림?
 
 + 남자와 여자가 가까울까? 남자와 자동차가 가까울까?
 A.
@@ -116,6 +125,8 @@ A.
     2. zero-shot learning 이 가능한 지도 찾아봐야겠다.
 
 6. Auto Encoder에 대해서 아는대로 얘기하라
+A.
+    1. 
 
 + MNIST AE를 TF나 Keras등으로 만든다면 몇줄일까?
 A.
@@ -174,28 +185,51 @@ A.
     1. 실제로 적용 해 본 결과 잘 되는 GAN 이 있고 안되는 GAN 이 있다.
 
 9. SGD, RMSprop, Adam에 대해서 아는대로 설명한다면?
-
+A.
+    1. SGD : GD 인데 차이점은 GD 는 전체 데이터를 SGD 는 부분 데이터를 트레이닝 한다.
+    2. RMSProp : adagrad 에 exponential moving average 방식의 gradient update 를 한다.
+    3. Adam : RMSProp + Momentum.
+    4. 물론 이 3개 다 step size wise 한 optimizer 그룹이라고 볼 수 있다. (크게 관성 vs step size 하자면 ㅇㅇ)
+    
 + SGD에서 Stochastic의 의미는?
-
+A.
+    1. 확률적이란 뜻인데, SGD 측면에서 보면 임의의 batch 를 골라 GD 하겠다는 의미
+    
 + 미니배치를 작게 할때의 장단점은?
 A.
-    1.
-    2. batch 가 작게 되면 한 번에 작은 양의 데이터 셋의 feature 밖에 고려를 하지 못하니 한 번에 다양한 feature 트레이닝이 힘들다.
+    1. 장점 : loss sensitive 해 진다.
+    2. 단점 : big batch 보다 느리다.
+    3. 단점 : batch 가 작게 되면 한 번에 작은 양의 데이터 셋의 feature 밖에 고려를 하지 못하니 한 번에 다양한 feature 트레이닝이 힘들다.
 
 + 모멘텀의 수식을 적어 본다면?
-
+A.
+    1. v = mu * v + - learning_rate * dx; x += v
 
 10. 간단한 MNIST 분류기를 MLP+CPU 버전으로 numpy로 만든다면 몇줄일까?
+A.
+    1. fc 구현 data loader, optimizer 등등 다 고려 해 보면 ~300줄 정도가 될 듯
 
 + 어느 정도 돌아가는 녀석을 작성하기까지 몇시간 정도 걸릴까?
+A.
+    1. reference 있이는 6시간?
+
 + Back Propagation은 몇줄인가?
+A.
+    1. fully-connected 만 있으면 이 부분 하나에 대한 back-propagation 은 ~10 줄 내외가 될 거다.
+
 + CNN으로 바꾼다면 얼마나 추가될까?
+A.
+    1. conv propagation, back-propagation 정보면 생각 해 보면 ~25줄?
 
 11. 간단한 MNIST 분류기를 TF나 Keras 등으로 작성하는데 몇시간이 필요한가?
 
 + CNN이 아닌 MLP로 해도 잘 될까?
+A.
+    1. 잘-은 된다. 그런데 acc 는 비교적 낮을 것이다.
 
 + 마지막 레이어 부분에 대해서 설명 한다면?
+A.
+    1. 클래스 사이즈 만큼으로 feature 를 줄여서 실제 classification 에 사용한다.
 
 + 학습은 BCE loss로 하되 상황을 MSE loss로 보고 싶다면?
 A.
@@ -203,7 +237,7 @@ A.
 
 + 만약 한글 (인쇄물) OCR을 만든다면 데이터 수집은 어떻게 할 수 있을까?
 A.
-    1. 
+    1. 부분적으로 OCR 되야 할 부분의 이미지와 그에 대한 positional label, (글자 label) 이 필요할 듯
 
 12. 간단한 MNIST DCGAN을 작성한다면 TF 등으로 몇줄 정도 될까?
 A.
@@ -211,7 +245,7 @@ A.
 
 + GAN의 Loss를 적어보면?
 A.
-    1. min(d)max(g)V(G,D) = 
+    1. min(d)max(g)V(G,D) = log(D(x)) + log(1 - D(G(z)))
 
 + D를 학습할때 G의 Weight을 고정해야 한다. 방법은?
 A.
@@ -247,6 +281,8 @@ A.
     tensorboard 를 통해 visualization 을 해 본다.
 
 15. Collaborative Filtering에 대해 설명한다면?
+A.
+    1. 모르겠다....
 
 16. AutoML이 뭐하는 걸까?
 A.
