@@ -83,7 +83,8 @@ A.
 
 + 어떤 CNN의 파라메터 개수를 계산해 본다면?
 A.
-    1. in/out filter 32/64 에 kernel size 가 3, stride 1 이면 (3 * 3 * 64) + 32
+    1. in/out filter 32/64 에 kernel size 가 3, stride 1 이면 (3 * 3 * 32) * 64
+    2. (kernel height * kernel width * input filter) * output filter
 
 + 주어진 CNN과 똑같은 MLP를 만들 수 있나?
 A.
