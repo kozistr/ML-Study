@@ -126,7 +126,11 @@ A.
 
 6. Auto Encoder에 대해서 아는대로 얘기하라
 A.
-    1. 
+    1. 간단하게 설명하면 NN 의 unsupervised 버전
+    2. input size == output size
+    3. Encoder 를 통해 입력 데이터 들의 feature 를 찾고
+    4. Decoder 를 통해 compressed 된 feature 를 가지고 새롭게 reconstruct 한다.
+    5. training 을 잘 하기 위해서 sparsity 라는 개념이 있다. 
 
 + MNIST AE를 TF나 Keras등으로 만든다면 몇줄일까?
 A.
@@ -135,7 +139,6 @@ A.
 + MNIST에 대해서 임베딩 차원을 1로 해도 학습이 될까?
 A.
     1. MNIST 차운이 784 차원인데 이것을 1차원으로 축소를 하고 training 을 한다면. 그 차원 축소를 한 method 에 따라서 다를 것이다.
-    2. 
 
 + 임베딩 차원을 늘렸을 때의 장단점은?
 A.
@@ -145,11 +148,11 @@ A.
 
 + AE 학습시 항상 Loss를 0으로 만들수 있을까?
 A.
-    1. 
+    1. NOP
 
 + VAE는 무엇인가?
 A.
-    1. Various Auto Encoder
+    1. Variational Auto Encoder
     2. 
 
 7. Training 세트와 Test 세트를 분리하는 이유는?
