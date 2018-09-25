@@ -193,24 +193,61 @@ A.
 11. 간단한 MNIST 분류기를 TF나 Keras 등으로 작성하는데 몇시간이 필요한가?
 
 + CNN이 아닌 MLP로 해도 잘 될까?
+
 + 마지막 레이어 부분에 대해서 설명 한다면?
+
 + 학습은 BCE loss로 하되 상황을 MSE loss로 보고 싶다면?
+A.
+    1. loss 는 BCE 를 쓰고 MSE 는 metric 으로 쓰면 된다.
+
 + 만약 한글 (인쇄물) OCR을 만든다면 데이터 수집은 어떻게 할 수 있을까?
+A.
+    1. 
 
 12. 간단한 MNIST DCGAN을 작성한다면 TF 등으로 몇줄 정도 될까?
+A.
+    1. D/G model 20줄 나머지 3~40줄 해서 ~70줄 내외.
 
 + GAN의 Loss를 적어보면?
+A.
+    1. min(d)max(g)V(G,D) = 
+
 + D를 학습할때 G의 Weight을 고정해야 한다. 방법은?
+A.
+    1. TF 라면 각 layer 의 함수에 ```trainable=False``` 를 하면 된다.
+
 + 학습이 잘 안될때 시도해 볼 수 있는 방법들은?
+A.
+    1. (모든 case) train,valid,test data verify
+    2. over/under-fitting 확인
+    3. mode collapse, bn 문제, 등등 확인
 
 13. 딥러닝할 때 GPU를 쓰면 좋은 이유는?
+A.
+    1. 빠름ㅋ
 
 + 학습 중인데 GPU를 100% 사용하지 않고 있다. 이유는?
+A.
+    1. TF 는 내부적으로 최적화 되게 GPU 를 사용하기 때문에 100% 가 아니라고 해서 잘 안되는게 아니다.
+    2. 아니면 진짜 GPU 를 안쓰고 CPU 쓰고 있던가 ㅇㅅㅇ
+
 + GPU를 두개 다 쓰고 싶다. 방법은?
+A.
+    1. TF 같은 경우면 tf.device('/gpu:N') 으로 지정하던가
+    2. keras 면 MultiGPUModel 을 쉽게 해준다. 그냥 n_gpus 에 갯수만 집어 넣으면 된다.
+
 + 학습시 필요한 GPU 메모리는 어떻게 계산하는가?
+A.
+    1. 네트워크 크기 + batch_size * 데이터 shape
 
 14. TF 또는 Keras 등을 사용할 때 디버깅 노하우는?
+A.
+    1. 디버깅을 해 본 경험은 없지만. 실시간 training 에 대한 loss 나 acc 같은 값들은
+    tensorboard 를 통해 visualization 을 해 본다.
 
 15. Collaborative Filtering에 대해 설명한다면?
 
 16. AutoML이 뭐하는 걸까?
+A.
+    1. 모델 구조나 하이퍼 파라메터를 자동으로 제일 optimal 한 구조, 값을 찾아주는 것이다.
+    2. 방식으로는 R.L, 유전 알고리즘 approach 를 쓴다고 한다.
