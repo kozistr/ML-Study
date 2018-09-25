@@ -79,7 +79,7 @@ A.
 + CNN이 MLP보다 좋은 이유는?
 A.
     1. MLP 보다 CNN 이 더 많은 파라메터를 가실 수 있어 표현력이 더 좋다.
-    2. 
+    2. 각 filter 에 대해 차원이 높지가 않아 dimension of curse 를 어쩌면 더 피할 수 있다.
 
 + 어떤 CNN의 파라메터 개수를 계산해 본다면?
 A.
@@ -87,7 +87,7 @@ A.
 
 + 주어진 CNN과 똑같은 MLP를 만들 수 있나?
 A.
-    1. 
+    1. 음... 가능 할 듯
 
 + 풀링시에 만약 Max를 사용한다면 그 이유는?
 A.
@@ -101,35 +101,88 @@ A.
 5. Word2Vec의 원리는?
 
 + 그 그림에서 왼쪽 파라메터들을 임베딩으로 쓰는 이유는?
+
 + 그 그림에서 오른쪽 파라메터들의 의미는 무엇일까?
+
 + 남자와 여자가 가까울까? 남자와 자동차가 가까울까?
+A.
+    1. Word2Vec 방식 트레이닝을 한다면, 트레이닝 데이터에 따라서 달라질 것이다.
+    2. case by case :)
+
 + 번역을 Unsupervised로 할 수 있을까?
+A.
+    1. 안해봐서 잘 모르겠지만 번역 같은 경우에 label 이 없으면 잘 안될 것 같다.
+    2. zero-shot learning 이 가능한 지도 찾아봐야겠다.
 
 6. Auto Encoder에 대해서 아는대로 얘기하라
 
 + MNIST AE를 TF나 Keras등으로 만든다면 몇줄일까?
+A.
+    1. 짧으면 50줄 길면 100줄 이내가 가능할 것 같다.
+
 + MNIST에 대해서 임베딩 차원을 1로 해도 학습이 될까?
+A.
+    1. MNIST 차운이 784 차원인데 이것을 1차원으로 축소를 하고 training 을 한다면. 그 차원 축소를 한 method 에 따라서 다를 것이다.
+    2. 
+
 + 임베딩 차원을 늘렸을 때의 장단점은?
+A.
+    1. 장점 : capacity 가 커져서 많고 다양한 word 에 대해 임베딩으로 표현이 가능하다.
+    2. 단점 : dimension 이 커지면 계산량이 많아지고 dimension of curse 에 의해 더 성능이 안좋아 질 수도 있다.
+    (경험상 한국어 w2v 임베딩을 할 경우 300~400 이 적당한 임베딩 사이즈 같다)
+
 + AE 학습시 항상 Loss를 0으로 만들수 있을까?
+A.
+    1. 
+
 + VAE는 무엇인가?
+A.
+    1. Various Auto Encoder
+    2. 
 
 7. Training 세트와 Test 세트를 분리하는 이유는?
 
 + Validation 세트가 따로 있는 이유는?
+A.
+    1. training 시에 over-fitting 여부를 확인해 주는 지표가 된다.
+
 + Test 세트가 오염되었다는 말의 뜻은?
+A.
+    1. test 셋도 같이 트레이닝 해 버린 경우
+
 + Regularization이란 무엇인가?
+A.
+    1. 정규화.
+    2. l1, l2, l1-l2 norm 만큼 갹 weight, bias, gradient 등등에 달아서 해당 값이 업데이트 될 때 over-shooting 하는 것을 방지 해 준다.
 
 8. Batch Normalization의 효과는?
+A.
+    1. network 를 거친 값들의 분포를 gaussian distribution 에 가깝게 만들어 줘,
+    값이 튀지(?) 않는 역할을 해 준다.
 
 + Dropout의 효과는?
+A.
+    1. training 시에 모든 neural cell 들을 학습 하지 않고 selective 하게 학습을 해서
+
 + BN 적용해서 학습 이후 실제 사용시에 주의할 점은? 코드로는?
+A.
+    1. BN 에 ```trainable=False``` 로 설정해서 moving variance average 같은 값을 업데이트 하지 않게 해 줘야 한다.
+
 + GAN에서 Generator 쪽에도 BN을 적용해도 될까?
+A.
+    1. 실제로 적용 해 본 결과 잘 되는 GAN 이 있고 안되는 GAN 이 있다.
 
 9. SGD, RMSprop, Adam에 대해서 아는대로 설명한다면?
 
 + SGD에서 Stochastic의 의미는?
+
 + 미니배치를 작게 할때의 장단점은?
+A.
+    1.
+    2. batch 가 작게 되면 한 번에 작은 양의 데이터 셋의 feature 밖에 고려를 하지 못하니 한 번에 다양한 feature 트레이닝이 힘들다.
+
 + 모멘텀의 수식을 적어 본다면?
+
 
 10. 간단한 MNIST 분류기를 MLP+CPU 버전으로 numpy로 만든다면 몇줄일까?
 
