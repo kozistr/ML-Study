@@ -28,22 +28,51 @@ A.
 
 2. Gradient Descent에 대해서 쉽게 설명한다면?
 A.
-    1. 
-   
+    1. 한국어로는 경사 하강법. 가장 저점을 찾아 오차를 줄여주는 것.
 
 + 왜 꼭 Gradient를 써야 할까?
+A.
+    1. gradient 를 통해 계산 된 loss 를 줄이기 위해 그 차이만큼 weight 를 adjust 하기 위해.
+    
 + 그 그래프에서 가로축과 세로축 각각은 무엇인가?
+A.
+    1. (2d plot 에 그렸다면) 가로축은 gradient 세로축은 loss
+    
 + 실제 상황에서는 그 그래프가 어떻게 그려질까?
+A.
+    1. weight-loss-vector 를 가지는 3d plot 으로 그려질 것이다.
+    
 + GD 중에 때때로 Loss가 증가하는 이유는?
+A.
+    1. 현재 있는 위치가 local minina 여서 주위에서 다른 곳으로 가다가 loss 가 올라가거나
+    2. step size 가 커서 그냥 건너 뛰다 더 작은 loss 값에 도달하지 못해서
+    
 + 중학생이 이해할 수 있게 더 쉽게 설명 한다면?
-+ Back Propagation에 대해서 쉽게 설명 한다면?
+A.
+    1. 가장 차이가 작은 곳을 찾아줘서 좋은 성능을 뽑아 내 주는 것
 
++ Back Propagation에 대해서 쉽게 설명 한다면?
+A.
+    1. 위에서 저점인 곳을 찾은 만큼 결과를 업데이트 해 주는 작업.
+    
 3. Local Minima 문제에도 불구하고 딥러닝이 잘 되는 이유는?
+A.
+    1. local minima 에 빠져도 그 곳이 reasonable 한 local minima 라 performance 가 나름 잘 나오기 떄문에.
 
 + GD가 Local Minima 문제를 피하는 방법은?
+A.
+    1. Hmm... local minima 를 피하게 위해 다른 개념들이 사용된 optimzier 가 나오게 되었다. (관성, step size 조절, 등...)
+
 + 찾은 해가 Global Minimum인지 아닌지 알 수 있는 방법은?
+A.
+    1. 그건 아~무도 모른다 :). 작년에 GD 로 2 layer neural net 에서 global minima 를 찾는 방법이 증명 되긴 했다.
 
 4. CNN에 대해서 아는대로 얘기하라
+A.
+    1. Convolutional Neural Network
+    2. conv, dilated conv, separable conv, depth,channel-wise conv, coord conv
+    3. 이미지 처리를 할 때 주로 사용된다.
+    4. 
 
 + CNN이 MLP보다 좋은 이유는?
 + 어떤 CNN의 파라메터 개수를 계산해 본다면?
