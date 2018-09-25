@@ -153,10 +153,12 @@ A.
 + VAE는 무엇인가?
 A.
     1. Variational Auto Encoder
-    2. 
+    2. loss 로 KL + alpha 가 사용됨
 
 7. Training 세트와 Test 세트를 분리하는 이유는?
-
+A.
+    1. 해당 네트워크가 global 한 feature 가 잘 트레이닝 됬는지를 확인 해 보기 위해서
+    
 + Validation 세트가 따로 있는 이유는?
 A.
     1. training 시에 over-fitting 여부를 확인해 주는 지표가 된다.
