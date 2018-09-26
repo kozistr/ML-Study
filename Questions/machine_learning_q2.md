@@ -20,8 +20,4 @@ Weight Initialization 방법에 대해 말해주세요. 그리고 무엇을 많�
 
 볼츠만 머신은 무엇인가요?
 
-요즘 Sigmoid 보다 ReLU를 많이 쓰는데 그 이유는?
-
-Non-Linearity라는 말의 의미와 그 필요성은?
-
 뉴럴넷의 가장 큰 단점은 무엇인가? 이를 위해 나온 One-Shot Learning은 무엇인가?
