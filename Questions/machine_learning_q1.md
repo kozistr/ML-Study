@@ -10,6 +10,9 @@ A.
 + Non-Linearity라는 말의 의미와 그 필요성은? <br>
 A.
     1. 비 선형성이라는 말이고 network 의 표현력을 높혀준다.
+    2. 부가 설명 하면 예를 들어 y = ax 라는 linear 한 함수를 activation 함수로 사용하면
+    MLP 같이 여러 층을 쌓는 구조에서는 결국 y = a^3 x ~ ax, a 하나로 표현이 가능하다.
+    그래서 nonlinear 한 activation function 을 사용해야 한다.
     
 + ReLU로 어떻게 곡선 함수를 근사하나? <br>
 A.
